@@ -6,6 +6,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default async function getRandomMovie (req, res) {
+  const alreadyAnswered = req.query.ids || []
   /*
     Getting a random Id from the database
   */

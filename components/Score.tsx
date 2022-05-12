@@ -1,8 +1,8 @@
 import React from 'react'
 import useStore from 'store/store'
-import Box from 'components/Score'
+import { Box } from '@chakra-ui/react'
 
-function Score () {
+function ScoreView () {
   const score = useStore(state => state.score)
 
   return (
@@ -12,4 +12,4 @@ function Score () {
   )
 }
 
-export default Score
+export default ScoreView

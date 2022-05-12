@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody } from '@chakra-ui/react'
 import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
+import MovieData from 'components/ModalResultMovieData'
 
 // eslint-disable-next-line react/display-name
 const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
@@ -14,6 +15,7 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
   const triggerTime = useStore(state => state.triggerTime)
   const scorePrev = useStore(state => state.score)
   const answerPopupOpened = useStore(state => state.answerPopupOpened)
+  const addAnswered = useStore(state => state.addAnswered)
   const modifyScore = () => useStore.setState({ score: scorePrev + time })
   const closePopup = () => useStore.setState({ answerPopupOpened: false })
 
@@ -27,21 +29,20 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
       loseLife()
     }
   }
+  const onOpen = () => {
+    if (encriptedMovieId === shaId) {
+      setStatus(1)
+      addAnswered()
+    } else if (lifes === 1) {
+      setStatus(2)
+    } else {
+      setStatus(0)
+    }
+  }
 
   useEffect(() => {
-    const onOpen = () => {
-      if (encriptedMovieId === shaId) {
-        setStatus(1)
-        // call getMovie
-      } else if (lifes === 1) {
-        setStatus(2)
-      } else {
-        setStatus(0)
-      }
-    }
-    onOpen()
+    if (answerPopupOpened) onOpen()
   }, [answerPopupOpened])
-  /* --- OJO QUE ESTO SE PUEDE ESTAR RENDERIZANDO CUANDO SE CIERRA TAMBIEN */
 
   const initialRef = React.useRef()
   const finalRef = ref
@@ -67,7 +68,11 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
             )}
 
             {status === 1 && (
-              <>You earned: {time} points!</>
+              <>
+                <p>You earned: {time} points!</p>
+                <MovieData />
+              </>
+              
             )}
 
             {status === 2 && (

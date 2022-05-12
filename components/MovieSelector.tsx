@@ -1,14 +1,12 @@
 /* eslint-disable spaced-comment */
 import settings from 'settings'
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Flex, FormControl } from '@chakra-ui/react'
 import { AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from '@choc-ui/chakra-autocomplete'
 import useStore from 'store/store'
 
 // eslint-disable-next-line react/display-name
 const MovieSelector = React.forwardRef((props, ref) => {
-  const elementoAutocomplete = useRef()
-  
   const [uniqueId, setUniqueId] = useState(0)
   const [selectorValues, setSelectorValues] = useState([])
   const [messageNoResult, setMessageNotResult] = useState('No results')
@@ -17,6 +15,7 @@ const MovieSelector = React.forwardRef((props, ref) => {
   const answer = useStore(state => state.answer)
   const setAnswer = useStore(state => state.setAnswer)
   const openPopup = () => useStore.setState({ answerPopupOpened: true })
+
   /*
   /* Debouncing Search results
   */
@@ -28,13 +27,16 @@ const MovieSelector = React.forwardRef((props, ref) => {
     if (inputValue.length > 2) {
       clearTimeout(filterTimeout)
       filterTimeout = setTimeout(() => {
-        fetch(settings.urls.searchMovies(inputValue))
+        fetch(`/api/searchMovies?query=${inputValue}`)
           .then(response => response.json())
           .then(data => {
             setSelectorValues(data.results)
+            if (data.results.length === 0) {
+              setMessageNotResult('No results')
+            }
           })
-          .catch(err => {
-            console.log(err)
+          .catch(() => {
+            setSelectorValues([])
           })
       }, 500)
     } else {
@@ -54,10 +56,14 @@ const MovieSelector = React.forwardRef((props, ref) => {
     setUniqueId(Date.now())
   }
 
+  useEffect(() => {
+    ref.current?.focus()
+  }, [])
+
   return (
     <Flex>
       <FormControl w='100%' mt='20'>
-        <AutoComplete key={uniqueId} restoreOnBlurIfEmpty='false' restoreOnBlur='false' emptyState={messageNoResult} emphasize='true' onSelectOption={movieData => handlerSubmit(movieData)} value='' ref={elementoAutocomplete} selectOnFocus='false'>
+        <AutoComplete key={uniqueId} restoreOnBlurIfEmpty='false' restoreOnBlur='false' emptyState={messageNoResult} emphasize='true' onSelectOption={movieData => handlerSubmit(movieData)} value='' selectOnFocus='false'>
           <AutoCompleteInput variant='filled' placeholder='Search for the movie' onChange={(e) => getOptions(e.target.value)} ref={ref} />
           <AutoCompleteList>
             {selectorValues.map((item, cid) => {

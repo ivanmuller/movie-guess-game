@@ -2,17 +2,17 @@ import settings from 'settings'
 import { fetcher } from 'lib/fetcher'
 
 export default async function getMovie (req, res) {
-  if (!req.query.id) {
-    return res.status(404).json({ error: 'Missing Movie ID' })
+  if (!req.query.query) {
+    return res.status(404).json({ error: 'Not value for query' })
   }
 
-  const movieId = req.query.id
-  const urlToFetch = settings.urls.getMovie(movieId)
+  const inputValue = req.query.query
+  const urlToFetch = settings.urls.searchMovies(inputValue)
 
   const promises = []
   promises.push(fetcher(urlToFetch))
   // add more push of fetcher if needed
-  
+
   Promise.allSettled(promises)
     .then(response => {
       /*
