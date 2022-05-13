@@ -1,9 +1,10 @@
 import settings from 'settings'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { fetcherResults } from 'lib/fetcher'
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-export default function generateIds (req, res) {
+export default function generateIds (req: NextApiRequest, res: NextApiResponse) {
   const pages = 15
   const realPagesUseItLater = 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)

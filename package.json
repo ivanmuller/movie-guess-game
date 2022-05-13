@@ -27,10 +27,13 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
     "babel-plugin-styled-components": "^2.0.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.15.0",
     "eslint-config-standard": "^17.0.0",
+    "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",

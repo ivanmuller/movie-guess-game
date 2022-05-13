@@ -11,7 +11,7 @@ import Lifes from 'components/Lifes'
 import ModalResult from 'components/ModalResult'
 import ImageVisor from 'components/ImageVisor'
 
-export default function Home (props) {
+export default function Home () {
   const { t } = useTranslation('common')
 
   const resetTime = useStore(state => state.resetTime)
