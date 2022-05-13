@@ -3,10 +3,10 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, Mo
 import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
+import { ModalResultsProps } from 'types'
 
-// eslint-disable-next-line react/display-name
-const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
-  const [status, setStatus] = useState(0) // 0:incorrect | 1:correct | 2:lose
+const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }: ModalResultsProps, ref): JSX.Element => {
+  const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
   const answer = useStore(state => state.answer)
   const encriptedMovieId = encrypt(answer)
   const score = useStore(state => state.score)
@@ -42,10 +42,11 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
 
   useEffect(() => {
     if (answerPopupOpened) onOpen()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answerPopupOpened])
 
-  const initialRef = React.useRef()
-  const finalRef = ref
+  const initialRef = React.useRef<HTMLButtonElement>(null)
+  const finalRef : any = ref
 
   return (
     <>
@@ -58,6 +59,7 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
         motionPreset='slideInBottom'
         isCentered
         size='xl'
+        onClose={() => false}
       >
         <ModalOverlay />
         <ModalContent>
@@ -72,7 +74,6 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
                 <p>You earned: {time} points!</p>
                 <MovieData />
               </>
-              
             )}
 
             {status === 2 && (
@@ -93,4 +94,5 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }, ref) => {
   )
 })
 
+ModalResult.displayName = 'ModalResult'
 export default ModalResult

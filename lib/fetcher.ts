@@ -1,4 +1,4 @@
-export const fetcher = (url) => {
+export const fetcher = (url: string) => {
   return fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -10,7 +10,7 @@ export const fetcher = (url) => {
     }).catch(null)
 }
 
-export const fetcherResults = (url) => {
+export const fetcherResults = (url: string) => {
   return fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -27,7 +27,7 @@ export const awaitFetcher = async (url) => {
     method: 'POST'
   })
   if (!res.ok) {
-    const error = new Error('An error occurred while fetching the data.')
+    const error : any = new Error('An error occurred while fetching the data.')
     error.info = res.statusText
     error.status = res.status
     throw error

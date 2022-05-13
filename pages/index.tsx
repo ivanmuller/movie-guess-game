@@ -5,13 +5,13 @@ import useTranslation from 'next-translate/useTranslation'
 import { Container, Flex, Spacer, Box } from '@chakra-ui/react'
 import MovieSelector from 'components/MovieSelector'
 import useStore from 'store/store'
-import ScoreView from 'components/Score'
+import ScoreView from 'components/ScoreView'
 import Timer from 'components/Timer'
 import Lifes from 'components/Lifes'
 import ModalResult from 'components/ModalResult'
 import ImageVisor from 'components/ImageVisor'
 
-export default function Home () {
+export default function Home (): JSX.Element {
   const { t } = useTranslation('common')
 
   const resetTime = useStore(state => state.resetTime)
@@ -23,7 +23,7 @@ export default function Home () {
   const answered = useStore(state => state.answered)
   const resetAnswered = useStore(state => state.resetAnswered)
 
-  const finalRef = React.useRef()
+  const finalRef = React.useRef<HTMLDivElement>(null)
 
   const { data, mutate, error } = useSWR('/api/getRandomMovie')
   const isLoading = !data && !error
@@ -61,7 +61,7 @@ export default function Home () {
         {error && <p>{t('errorPrefix')} {error.info}</p>}
         {isReady && (
           <>
-            answered: {answered.join("-")}
+            answered: {answered.join('-')}
             <Container maxW='container.md'>
               <Flex align='center' justify='center'>
                 <ScoreView />

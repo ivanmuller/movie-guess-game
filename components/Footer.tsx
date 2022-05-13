@@ -6,7 +6,7 @@ import Image from 'next/image'
 import logoGithub from 'public/github.png'
 import { Container } from '@chakra-ui/react'
 
-export default function Footer () {
+export default function Footer (): JSX.Element {
   const { locales } = i18nData
   const { t, lang } = useTranslation('common')
 

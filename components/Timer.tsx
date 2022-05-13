@@ -4,7 +4,7 @@ import useStore from 'store/store'
 import useInterval from 'lib/useInterval'
 import { CircularProgress, CircularProgressLabel, Box } from '@chakra-ui/react'
 
-function Timer () {
+function Timer (): JSX.Element {
   const time = useStore(state => state.time)
   const timeRunning = useStore(state => state.timeRunning)
   const decreaseTime = useStore(state => state.decreaseTime)
@@ -29,14 +29,15 @@ function Timer () {
     setTimeDecimal(settings.time)
     if (time === 0) {
       openPopup()
-      setAnswer(0)
+      setAnswer(null)
       triggerTime()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
 
   return (
     <Box>
-      <CircularProgress value={timeDecimal} size='100px' thickness='2px' min='0' max={settings.time}>
+      <CircularProgress value={timeDecimal} size='100px' thickness='2px' min={0} max={settings.time}>
         <CircularProgressLabel>{time}</CircularProgressLabel>
       </CircularProgress>
     </Box>

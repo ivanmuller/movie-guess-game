@@ -52,7 +52,7 @@ export default function generateIds (req: NextApiRequest, res: NextApiResponse) 
 
     if (fullFilledSources.length > 0) {
       deleteAndUpdateMovieSet().then(() => {
-        return res.status(200).json({ message: "done" })
+        return res.status(200).json({ message: 'done' })
       })
     }
   }).catch(error => res.status(404).json({ error: error.toString() }))

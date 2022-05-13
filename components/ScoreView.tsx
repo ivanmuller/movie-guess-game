@@ -2,7 +2,7 @@ import React from 'react'
 import useStore from 'store/store'
 import { Box } from '@chakra-ui/react'
 
-function ScoreView () {
+function ScoreView (): JSX.Element {
   const score = useStore(state => state.score)
 
   return (

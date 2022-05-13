@@ -1,12 +1,9 @@
-/* eslint-disable spaced-comment */
-import settings from 'settings'
 import React, { useState, useEffect, useCallback } from 'react'
 import { Flex, FormControl } from '@chakra-ui/react'
 import { AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from '@choc-ui/chakra-autocomplete'
 import useStore from 'store/store'
 
-// eslint-disable-next-line react/display-name
-const MovieSelector = React.forwardRef((props, ref) => {
+const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
   const [uniqueId, setUniqueId] = useState(0)
   const [selectorValues, setSelectorValues] = useState([])
   const [messageNoResult, setMessageNotResult] = useState('No results')
@@ -20,12 +17,13 @@ const MovieSelector = React.forwardRef((props, ref) => {
   /* Debouncing Search results
   */
   let filterTimeout
-  const getOptions = useCallback((inputValue) => {
+  const getOptions = useCallback((inputValue: string | undefined): void => {
     if (!inputValue) {
-      return []
+      setSelectorValues([])
     }
     if (inputValue.length > 2) {
       clearTimeout(filterTimeout)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       filterTimeout = setTimeout(() => {
         fetch(`/api/searchMovies?query=${inputValue}`)
           .then(response => response.json())
@@ -43,7 +41,7 @@ const MovieSelector = React.forwardRef((props, ref) => {
       setSelectorValues([])
       setMessageNotResult('3 chars minimum')
     }
-  })
+  }, [])
 
   const handlerSubmit = (movieData) => {
     const movieId = movieData.item.value
@@ -63,7 +61,14 @@ const MovieSelector = React.forwardRef((props, ref) => {
   return (
     <Flex>
       <FormControl w='100%' mt='20'>
-        <AutoComplete key={uniqueId} restoreOnBlurIfEmpty='false' restoreOnBlur='false' emptyState={messageNoResult} emphasize='true' onSelectOption={movieData => handlerSubmit(movieData)} value='' selectOnFocus='false'>
+        <AutoComplete
+          key={uniqueId}
+          restoreOnBlurIfEmpty={false}
+          emptyState={messageNoResult}
+          emphasize={true}
+          onSelectOption={movieData => handlerSubmit(movieData)}
+          value=''
+          selectOnFocus={false}>
           <AutoCompleteInput variant='filled' placeholder='Search for the movie' onChange={(e) => getOptions(e.target.value)} ref={ref} />
           <AutoCompleteList>
             {selectorValues.map((item, cid) => {
@@ -90,4 +95,5 @@ const MovieSelector = React.forwardRef((props, ref) => {
   )
 })
 
+MovieSelector.displayName = 'MovieSelector'
 export default MovieSelector
