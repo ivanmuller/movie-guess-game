@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
+import { awaitFetcher } from 'lib/fetcher'
 import useTranslation from 'next-translate/useTranslation'
 import { Container, Flex, Spacer, Box } from '@chakra-ui/react'
 import MovieSelector from 'components/MovieSelector'
@@ -20,12 +21,12 @@ export default function Home (): JSX.Element {
   const resetAnswer = useStore(state => state.resetAnswer)
   const lifes = useStore(state => state.lifes)
   const decreaseLifes = useStore(state => state.decreaseLifes)
-  const answered = useStore(state => state.answered)
-  const resetAnswered = useStore(state => state.resetAnswered)
+  const history = useStore(state => state.history)
+  const resetHistory = useStore(state => state.resetHistory)
 
   const finalRef = React.useRef<HTMLDivElement>(null)
 
-  const { data, mutate, error } = useSWR('/api/getRandomMovie')
+  const { data, mutate, error } = useSWR('randomMovie', () => awaitFetcher('/api/getRandomMovie', { history }))
   const isLoading = !data && !error
   const isReady = !error && !isLoading
 
@@ -37,10 +38,10 @@ export default function Home (): JSX.Element {
   }
 
   const newGame = () => {
+    resetHistory()
     newMovie()
     resetLifes()
     resetScore()
-    //resetAnswered()
   }
 
   const loseLife = () => {
@@ -61,7 +62,6 @@ export default function Home (): JSX.Element {
         {error && <p>{t('errorPrefix')} {error.info}</p>}
         {isReady && (
           <>
-            answered: {answered.join('-')}
             <Container maxW='container.md'>
               <Flex align='center' justify='center'>
                 <ScoreView />
@@ -76,7 +76,7 @@ export default function Home (): JSX.Element {
                 <Box flex='1'><MovieSelector ref={finalRef} /></Box>
               </Flex>
             </Container>
-            <ModalResult ref={finalRef} shaId={data.id} loseLife={loseLife} newMovie={newMovie} />
+            <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
           </>
         )}
       </div>

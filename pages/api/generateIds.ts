@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default function generateIds (req: NextApiRequest, res: NextApiResponse) {
-  const pages = 15
+  const pages = 1
   const realPagesUseItLater = 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)
 

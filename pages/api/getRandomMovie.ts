@@ -6,22 +6,36 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default async function getRandomMovie (req, res) {
-  const alreadyAnswered = req.query.ids || []
+  const history = req.body.history?.map(e => parseFloat(e)) || []
+
   /*
-    Getting a random Id from the database
+   * Getting a random Id from the database, taking into account the already history movies.
+   * First we need to check how many rows we have in total,
+   * then we can get a random order id based in the minumun, maximum, and already history
   */
   async function getRandomId () {
     const moviesCount = await prisma.MovieSetBegginer.count()
-    const randomMovie = await prisma.MovieSetBegginer.findMany({
-      where: {
-        order: randomIntFromInterval(1, moviesCount)
-      }
-    })
-    return randomMovie[0].movieId
+    if (moviesCount > history.length) {
+      const randomMovie = await prisma.MovieSetBegginer.findMany({
+        where: {
+          order: randomIntFromInterval(1, moviesCount, history)
+        }
+      })
+      const { movieId, order } = randomMovie[0]
+      return { movieId, order }
+    } else {
+      return null
+    }
   }
 
-  const movieId = await getRandomId()
-  const urlForImages = settings.urls.getImages(movieId)
+  /*
+   * With a random movieId, get the movie Info
+   */
+  const randomMovie = await getRandomId()
+  if (!randomMovie?.movieId) {
+    return res.status(200).json({ message: 'No more movies left' })
+  }
+  const urlForImages = settings.urls.getImages(randomMovie.movieId)
 
   const promises = []
   promises.push(fetcher(urlForImages))
@@ -41,12 +55,12 @@ export default async function getRandomMovie (req, res) {
 
       /*
         Getting an ecrypted id
-        Calling first backdrop
+        Calling first two backdrops
       */
       let { id, backdrops } = fullFilledSources
       id = encrypt(id.toString())
       const filePath = backdrops[0].file_path
       const filePathAlt = backdrops[1].file_path
-      return res.status(200).json({ id, filePath, filePathAlt })
+      return res.status(200).json({ id, filePath, filePathAlt, order: randomMovie.order })
     }).catch(error => res.status(404).json({ error: error.toString() }))
 }

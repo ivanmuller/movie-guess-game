@@ -16,7 +16,7 @@ export interface AppState {
   timeRunning: boolean;
   answerPopupOpened: boolean
   answer: string | null
-  answered: string[]
+  history: string[]
   decreaseLifes: () => void
   decreaseTime: () => void
   setAnswer: (movieId: string | null) => void
@@ -25,6 +25,6 @@ export interface AppState {
   triggerTime: () => void
   resetLifes: () => void
   resetAnswer: () => void
-  addAnswered: () => void
-  resetAnswered: () => void
+  addHistory: (movieOrder: number) => void
+  resetHistory: () => void
 }

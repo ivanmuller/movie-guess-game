@@ -5,17 +5,17 @@ import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
 import { ModalResultsProps } from 'types'
 
-const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }: ModalResultsProps, ref): JSX.Element => {
+const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }: ModalResultsProps, ref): JSX.Element => {
   const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
   const answer = useStore(state => state.answer)
-  const encriptedMovieId = encrypt(answer)
+  const encriptedAnswerId = encrypt(answer)
   const score = useStore(state => state.score)
   const time = useStore(state => state.time)
   const lifes = useStore(state => state.lifes)
   const triggerTime = useStore(state => state.triggerTime)
   const scorePrev = useStore(state => state.score)
   const answerPopupOpened = useStore(state => state.answerPopupOpened)
-  const addAnswered = useStore(state => state.addAnswered)
+  const addHistory = useStore(state => state.addHistory)
   const modifyScore = () => useStore.setState({ score: scorePrev + time })
   const closePopup = () => useStore.setState({ answerPopupOpened: false })
 
@@ -23,16 +23,16 @@ const ModalResult = React.forwardRef(({ shaId, loseLife, newMovie }: ModalResult
     closePopup()
     triggerTime()
     newMovie()
-    if (encriptedMovieId === shaId) {
+    if (encriptedAnswerId === shaId) {
       modifyScore()
     } else {
       loseLife()
     }
   }
   const onOpen = () => {
-    if (encriptedMovieId === shaId) {
+    addHistory(movieOrder)
+    if (encriptedAnswerId === shaId) {
       setStatus(1)
-      addAnswered()
     } else if (lifes === 1) {
       setStatus(2)
     } else {

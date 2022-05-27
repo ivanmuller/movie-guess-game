@@ -22,9 +22,10 @@ export const fetcherResults = (url: string) => {
     }).catch(null)
 }
 
-export const awaitFetcher = async (url) => {
+export const awaitFetcher = async (url, history) => {
   const res = await fetch(url, {
-    method: 'POST'
+    method: 'POST',
+    body: JSON.stringify(history)
   })
   if (!res.ok) {
     const error : any = new Error('An error occurred while fetching the data.')

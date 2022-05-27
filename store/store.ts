@@ -9,7 +9,7 @@ const useStore = create<AppState>(set => ({
   timeRunning: true,
   answerPopupOpened: false,
   answer: null,
-  answered: [],
+  history: [],
   decreaseLifes: () => set((state) => ({ lifes: state.lifes - 1 })),
   decreaseTime: () => set((state) => ({ time: state.time - 1 })),
   setAnswer: (movieId) => set({ answer: movieId }),
@@ -18,8 +18,8 @@ const useStore = create<AppState>(set => ({
   triggerTime: () => set((state) => ({ timeRunning: !state.timeRunning })),
   resetLifes: () => set({ lifes: settings.lifes }),
   resetAnswer: () => set({ answer: null }),
-  addAnswered: () => set((state) => ({ answered: [...state.answered, state.answer] })),
-  resetAnswered: () => set(({ answered: [] }))
+  addHistory: (movieOrder) => set((state) => ({ history: [...state.history, movieOrder] })),
+  resetHistory: () => set(({ history: [] }))
 }))
 
 export default useStore
