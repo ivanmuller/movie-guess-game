@@ -37,9 +37,9 @@ function Timer (): JSX.Element {
 
   return (
     <Box>
-      <CircularProgress value={timeDecimal} color='#342E59' size='140px' thickness='4px' min={0} max={settings.time}>
+      <CircularProgress value={timeDecimal} trackColor='rgba(255,255,255,0.4)' color='rgba(255,255,255,1)' size='140px' thickness='4px' min={0} max={settings.time}>
         <CircularProgressLabel>
-            <Text as='h3' fontSize="50px" align="center" textShadow='0 0 4px #000'>{time}</Text>
+            <Text as='h3' fontSize="50px" align="center">{time}</Text>
         </CircularProgressLabel>
       </CircularProgress>
     </Box>

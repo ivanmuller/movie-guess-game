@@ -13,7 +13,7 @@ const settings = {
     imageBaseBackdrop: (imgFile, width = 1280) => `https://image.tmdb.org/t/p/w${width}${imgFile}`
   },
   time: 20,
-  lifes: 3,
+  lifes: 4,
   styles: {
     brandDark: '',
     white: '#FFF'

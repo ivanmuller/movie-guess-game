@@ -77,7 +77,7 @@ export default function Home (): JSX.Element {
               <ImageVisor {...data} />
               <Container maxW='container.sm' mt='-280px' position='relative'>
                 <Box align='center' mb='15px'><Timer /></Box>
-                <Text as='h1' fontSize='40px' mb='25px' align='center' textShadow='0 0 4px #000'>What the Flick?</Text>
+                <Text as='h1' fontSize='40px' mb='25px' align='center'>What the Flick?</Text>
                 <Box flex='1'><MovieSelector ref={finalRef} /></Box>
               </Container>
               <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
