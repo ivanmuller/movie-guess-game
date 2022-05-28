@@ -61,8 +61,8 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
         size='xl'
         onClose={() => false}
       >
-        <ModalOverlay />
-        <ModalContent>
+        <ModalOverlay backdropFilter='blur(4px)' bg='rgba(0,0,0,0.6)' />
+        <ModalContent backgroundColor="#272042">
           <ModalHeader>{status === 1 ? 'Correct!' : 'Incorrect'}</ModalHeader>
           <ModalBody>
             {status === 0 && (

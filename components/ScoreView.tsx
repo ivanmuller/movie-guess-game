@@ -1,14 +1,12 @@
 import React from 'react'
 import useStore from 'store/store'
-import { Box } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 
 function ScoreView (): JSX.Element {
   const score = useStore(state => state.score)
 
   return (
-    <Box>
-      Score: {score}
-    </Box>
+    <Text as='h3' fontSize="25px" mt="10px" align="right" textShadow='0 0 4px #000'>Score: {score}</Text>
   )
 }
 

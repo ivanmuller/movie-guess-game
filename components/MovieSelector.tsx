@@ -60,8 +60,10 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
 
   return (
     <Flex>
-      <FormControl w='100%' mt='20'>
+      <FormControl w='100%' borderRadius='22px' backgroundColor='#342E59'>
         <AutoComplete
+          backgroundColor='#342E59'
+          borderRadius="22px"
           key={uniqueId}
           restoreOnBlurIfEmpty={false}
           emptyState={messageNoResult}
@@ -69,8 +71,8 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           onSelectOption={movieData => handlerSubmit(movieData)}
           value=''
           selectOnFocus={false}>
-          <AutoCompleteInput variant='filled' placeholder='Search for the movie' onChange={(e) => getOptions(e.target.value)} ref={ref} />
-          <AutoCompleteList>
+          <AutoCompleteInput variant='filled' _hover={{ backgroundColor: '#342E59' }} px='30px' borderRadius='22px' focusBorderColor='#342E59' height='81' backgroundColor='#342E59' placeholder='Search for the movie' onChange={(e) => getOptions(e.target.value)} ref={ref} />
+          <AutoCompleteList borderRadius="22px">
             {selectorValues.map((item, cid) => {
               // eslint-disable-next-line camelcase
               const { id, title, release_date } = item
@@ -83,6 +85,9 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
                   value={id}
                   label={thisrender}
                   getValue={() => `${id}`}
+                  _hover={{ backgroundColor: '#FFF', color: '#272042' }}
+                  _focus={{ backgroundColor: '#FFF', color: '#272042' }}
+                  _active={{ backgroundColor: '#FFF', color: '#272042' }}
                 >
                   {thisrender}
                 </AutoCompleteItem>

@@ -1,5 +1,31 @@
 html {
   body {
-    border: 1px solid red;
+    background: #272042;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
   }
 }
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "VT323", monospace;
+}
+
+.chakra-modal__overlay {
+}
+.chakra-popover__content {
+  max-height: 20vh !important;
+  background: #342E59 !important;
+}
+
+.chakra-progress {
+  filter: drop-shadow(0 0 1px #fff);
+}
+
+/*#__next[aria-hidden="true"] {
+  filter: blur(4px);
+}*/

@@ -2,7 +2,7 @@ import settings from 'settings'
 import React, { useState, useEffect } from 'react'
 import useStore from 'store/store'
 import useInterval from 'lib/useInterval'
-import { CircularProgress, CircularProgressLabel, Box } from '@chakra-ui/react'
+import { CircularProgress, CircularProgressLabel, Box, Text } from '@chakra-ui/react'
 
 function Timer (): JSX.Element {
   const time = useStore(state => state.time)
@@ -37,8 +37,10 @@ function Timer (): JSX.Element {
 
   return (
     <Box>
-      <CircularProgress value={timeDecimal} size='100px' thickness='2px' min={0} max={settings.time}>
-        <CircularProgressLabel>{time}</CircularProgressLabel>
+      <CircularProgress value={timeDecimal} color='#342E59' size='140px' thickness='4px' min={0} max={settings.time}>
+        <CircularProgressLabel>
+            <Text as='h3' fontSize="50px" align="center" textShadow='0 0 4px #000'>{time}</Text>
+        </CircularProgressLabel>
       </CircularProgress>
     </Box>
   )

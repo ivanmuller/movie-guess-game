@@ -2,15 +2,14 @@ import { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 import React, { useEffect } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
-import Footer from 'components/Footer'
 import 'styles/_globals.css'
 
 function MyApp ({ Component, pageProps }: AppProps) : JSX.Element {
-  useEffect(() => {
+  /*useEffect(() => {
     const disableRightClick = (e) => { e.preventDefault(); alert('Sorry, you\'re not allowed to cheat 🤣') }
     window.addEventListener('contextmenu', disableRightClick)
     return () => window.removeEventListener('contextmenu', disableRightClick)
-  }, [])
+  }, [])*/
 
   return (
     <ChakraProvider>
@@ -21,7 +20,6 @@ function MyApp ({ Component, pageProps }: AppProps) : JSX.Element {
       }}
       >
         <Component {...pageProps} />
-        {/* <Footer /> */}
       </SWRConfig>
     </ChakraProvider>
   )
