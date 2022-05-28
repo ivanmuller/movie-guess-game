@@ -62,13 +62,8 @@ export default function Home (): JSX.Element {
         {error && <p>{t('errorPrefix')} {error.info}</p>}
         {isReady && (
           <>
-            <Container maxW='container.md'>
-              <Flex align='center' justify='center'>
-                <ScoreView />
-                <Spacer />
-                <Lifes />
-              </Flex>
-            </Container>
+            <ScoreView />
+            <Lifes />
             <ImageVisor {...data} />
             <Container maxW='container.md'>
               <Flex>
