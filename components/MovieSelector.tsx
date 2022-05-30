@@ -22,6 +22,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
       setSelectorValues([])
     }
     if (inputValue.length > 2) {
+      setMessageNotResult('Loading...')
       clearTimeout(filterTimeout)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       filterTimeout = setTimeout(() => {
@@ -71,29 +72,43 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           onSelectOption={movieData => handlerSubmit(movieData)}
           value=''
           selectOnFocus={false}>
-          <AutoCompleteInput variant='filled' _hover={{ backgroundColor: '#342E59' }} px='30px' borderRadius='22px' focusBorderColor='#342E59' height='81' backgroundColor='#342E59' placeholder='Search for the movie' onChange={(e) => getOptions(e.target.value)} ref={ref} />
-          <AutoCompleteList borderRadius="22px">
-            {selectorValues.map((item, cid) => {
-              // eslint-disable-next-line camelcase
-              const { id, title, release_date } = item
-              // eslint-disable-next-line camelcase
-              const year = release_date && release_date.split('-')[0]
-              const thisrender = `${title} - ${year}`
-              return (
-                <AutoCompleteItem
-                  key={`option-${cid}`}
-                  value={id}
-                  label={thisrender}
-                  getValue={() => `${id}`}
-                  _hover={{ backgroundColor: '#FFF', color: '#272042' }}
-                  _focus={{ backgroundColor: '#FFF', color: '#272042' }}
-                  _active={{ backgroundColor: '#FFF', color: '#272042' }}
-                >
-                  {thisrender}
-                </AutoCompleteItem>
-              )
-            })}
-          </AutoCompleteList>
+          <AutoCompleteInput
+            isLoading
+            variant='filled'
+            px='30px'
+            borderRadius='22px'
+            focusBorderColor='#342E59'
+            height='81'
+            fontSize='20px'
+            backgroundColor='#342E59'
+            placeholder='Your answer...'
+            _hover={{ backgroundColor: '#342E59' }}
+            onChange={(e) => getOptions(e.target.value)} ref={ref} />
+            <AutoCompleteList>
+              {selectorValues.map((item, cid) => {
+                // eslint-disable-next-line camelcase
+                const { id, title, release_date } = item
+                // eslint-disable-next-line camelcase
+                const year = release_date && release_date.split('-')[0]
+                const thisrender = `${title} - ${year}`
+                return (
+                  <AutoCompleteItem
+                    key={`option-${cid}`}
+                    value={id}
+                    label={thisrender}
+                    getValue={() => `${id}`}
+                    fontSize='18px'
+                    mx='-0.5rem'
+                    borderRadius='18px'
+                    _hover={{ backgroundColor: '#FFF', color: '#272042' }}
+                    _focus={{ backgroundColor: '#FFF', color: '#272042' }}
+                    _active={{ backgroundColor: '#FFF', color: '#272042' }}
+                  >
+                    {thisrender}
+                  </AutoCompleteItem>
+                )
+              })}
+            </AutoCompleteList>
         </AutoComplete>
       </FormControl>
     </Flex>

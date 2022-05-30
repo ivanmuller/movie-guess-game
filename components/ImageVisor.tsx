@@ -29,7 +29,7 @@ function ImageVisor ({ filePath, filePathAlt }: ImageVisorProps): JSX.Element {
     <Center backgroundColor='#000' alignItems="stretch" position="relative">
       <Cap type="l"></Cap>
       <Image
-        width='1280px' height='70vh'
+        w='1280px' h={['50vh', null, '70vh']}
         objectFit='cover'
         src={settings.urls.imageBaseBackdrop(showingImg)}
         alt=''

@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default async function getRandomMovie (req, res) {
-  const history = req.body.history?.map(e => parseFloat(e)) || []
+  const history = JSON.parse(req.body).history?.map(e => parseFloat(e)) || []
 
   /*
    * Getting a random Id from the database, taking into account the already history movies.

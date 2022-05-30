@@ -2,27 +2,26 @@ import Link from 'next/link'
 import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import i18nData from 'i18n.json'
-import Image from 'next/image'
 import logoGithub from 'public/github.png'
-import { Container } from '@chakra-ui/react'
+import { Container, UnorderedList, ListItem, Text, Image } from '@chakra-ui/react'
 
 export default function Footer (): JSX.Element {
   const { locales } = i18nData
   const { t, lang } = useTranslation('common')
 
   return (
-    <Container>
-      <ul>
+    <Container maxW='container.sm' height='60px' display='flex' justifyContent='flex-end' alignItems='center' gap={6}>
+      <UnorderedList styleType='none' margin='0' display='flex' gap={4}>
         {locales.map((lng) =>
-          <li key={lng}>
+          <ListItem key={lng}>
             <Link href='/' locale={lng} key={lng} passHref>
-              <a className={lang === lng ? 'active' : ''}>{t(`language-name-${lng}`)}</a>
+              <Text as='a' textTransform='uppercase' borderBottom={lang === lng ? '1px' : ''}>{t(`language-name-${lng}`)}</Text>
             </Link>
-          </li>
+          </ListItem>
         )}
-      </ul>
+      </UnorderedList>
       <span>
-        @2022 <a href='https://github.com/ivanmuller/usdblue' target='_blank' rel='noreferrer'>Iván Müller <Image alt='Iván Müller Github' src={logoGithub} width={16} height={16} /></a>
+        @2022 <Text as='a' href='https://github.com/ivanmuller' target='_blank' rel='noreferrer' _hover={{ borderBottom: '1px' }}>Iván Müller <Image display='inline-block' verticalAlign='baseline' alt='Iván Müller Github' src={logoGithub.src} w='16px' h='16px' /></Text>
       </span>
     </Container>
   )

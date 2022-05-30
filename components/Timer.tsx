@@ -26,7 +26,7 @@ function Timer (): JSX.Element {
   }, 200)
 
   useEffect(() => {
-    setTimeDecimal(settings.time)
+    setTimeDecimal(time)
     if (time === 0) {
       openPopup()
       setAnswer(null)
@@ -37,9 +37,9 @@ function Timer (): JSX.Element {
 
   return (
     <Box>
-      <CircularProgress value={timeDecimal} trackColor='rgba(255,255,255,0.4)' color='rgba(255,255,255,1)' size='140px' thickness='4px' min={0} max={settings.time}>
+      <CircularProgress value={timeDecimal} trackColor='rgba(255,255,255,0.4)' color='rgba(255,255,255,1)' size={{ base: '100px', md: null, lg: '140px'}} thickness='4px' min={0} max={settings.time}>
         <CircularProgressLabel>
-            <Text as='h3' fontSize="50px" align="center">{time}</Text>
+          <Text as='h3' fontSize={{ base: '25px', md: null, lg: '50px' }} align="center">{time}</Text>
         </CircularProgressLabel>
       </CircularProgress>
     </Box>

@@ -15,17 +15,16 @@ h4 {
   font-family: "VT323", monospace;
 }
 
-.chakra-modal__overlay {
+button {
+  color: black !important;
 }
+
 .chakra-popover__content {
-  max-height: 20vh !important;
-  background: #342E59 !important;
+  max-height: 30vh !important;
+  background: #342e59 !important;
+  border-radius: 22px !important;
+  padding: 12px 30px !important;
+  @media screen and (min-width: 62em) {
+    max-height: 20vh !important;
+  }
 }
-
-.chakra-progress {
-  /*filter: drop-shadow(0 0 1px #fff);*/
-}
-
-/*#__next[aria-hidden="true"] {
-  filter: blur(4px);
-}*/
