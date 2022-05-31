@@ -1,6 +1,6 @@
 import React from 'react'
-import useStore from 'store/store'
 import { Text } from '@chakra-ui/react'
+import useStore from 'store/store'
 
 function ScoreView (): JSX.Element {
   const score = useStore(state => state.score)

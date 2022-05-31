@@ -57,14 +57,13 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
 
   useEffect(() => {
     ref.current?.focus()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Flex>
       <FormControl w='100%' borderRadius='22px' backgroundColor='#342E59'>
         <AutoComplete
-          backgroundColor='#342E59'
-          borderRadius="22px"
           key={uniqueId}
           restoreOnBlurIfEmpty={false}
           emptyState={messageNoResult}
@@ -73,7 +72,6 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           value=''
           selectOnFocus={false}>
           <AutoCompleteInput
-            isLoading
             variant='filled'
             px='30px'
             borderRadius='22px'

@@ -1,9 +1,9 @@
-import settings from 'settings'
 import React from 'react'
 import useSWR from 'swr'
+import { Flex, Box, Text } from '@chakra-ui/react'
+import settings from 'settings'
 import useStore from 'store/store'
 import { awaitFetcher } from 'lib/fetcher'
-import { Flex, Box, Text } from '@chakra-ui/react'
 
 const MovieData = (): JSX.Element => {
   const answer = useStore(state => state.answer)
@@ -11,7 +11,6 @@ const MovieData = (): JSX.Element => {
   const { data, error } = useSWR(answer, () => awaitFetcher(`/api/getMovie?id=${answer}`))
   const isLoading = !data && !error
   const isReady = !error && !isLoading
-  const year = data?.release_date && data?.release_date.split('-')[0]
 
   return (
     <>

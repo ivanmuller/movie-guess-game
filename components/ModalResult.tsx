@@ -4,9 +4,9 @@ import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
 import Lifes from 'components/Lifes'
-import { ModalResultsProps } from 'types'
+import { IModalResults } from 'interfaces'
 
-const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }: ModalResultsProps, ref): JSX.Element => {
+const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }: IModalResults, ref): JSX.Element => {
   const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
   const answer = useStore(state => state.answer)
   const encriptedAnswerId = encrypt(answer)
@@ -64,7 +64,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
       >
         <ModalOverlay backdropFilter='blur(4px)' bg='rgba(0,0,0,0.6)' />
         <ModalContent backgroundColor="#272042">
-          <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? 'You\'re right!' : 'Nope...'}</Text></ModalHeader>
+          <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? 'You\'re right!' : 'Fail!'}</Text></ModalHeader>
           <ModalBody>
             {status === 0 && (
               <Text as='p' borderY='1px' py='12px' borderColor='rgba(255,255,255,0.2)' fontSize='25px' mb='25px'>

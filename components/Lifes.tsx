@@ -1,7 +1,8 @@
 import React from 'react'
+import { Image, Flex } from '@chakra-ui/react'
 import useStore from 'store/store'
 import settings from 'settings'
-import { Image, Flex } from '@chakra-ui/react'
+
 import lifeFull from 'public/life-full.svg'
 import lifeEmpty from 'public/life-empty.svg'
 

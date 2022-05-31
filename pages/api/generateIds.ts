@@ -1,19 +1,19 @@
-import settings from 'settings'
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { fetcherResults } from 'lib/fetcher'
+import type { NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
+import settings from 'settings'
+import { fetcherResults } from 'lib/fetcher'
+
 const prisma = new PrismaClient()
 
-export default function generateIds (req: NextApiRequest, res: NextApiResponse) {
-  const pages = 1
-  const realPagesUseItLater = 33
+export default function generateIds (res: NextApiResponse) {
+  const pages = 1 // 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)
 
   /*
     Create a MovieDatabase API URL with the pageNumber
     Run a fetch to a page and return a Promise
   */
-  const fetchApage = (idPage) => {
+  const fetchApage = (idPage: number) => {
     return Promise.resolve(fetcherResults(settings.urls.getMovieset1(idPage)))
   }
 
@@ -44,8 +44,8 @@ export default function generateIds (req: NextApiRequest, res: NextApiResponse) 
       return acc
     }, [])
     async function deleteAndUpdateMovieSet () {
-      await prisma.MovieSetBegginer.deleteMany({})
-      await prisma.MovieSetBegginer.createMany({
+      await prisma.movieSetBegginer.deleteMany({})
+      await prisma.movieSetBegginer.createMany({
         data: fullFilledSources
       })
     }

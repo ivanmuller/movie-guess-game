@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
-import { awaitFetcher } from 'lib/fetcher'
 import useTranslation from 'next-translate/useTranslation'
 import { Container, Flex, Box, Text } from '@chakra-ui/react'
-import MovieSelector from 'components/MovieSelector'
+import { awaitFetcher } from 'lib/fetcher'
 import useStore from 'store/store'
+
+import MovieSelector from 'components/MovieSelector'
 import ScoreView from 'components/ScoreView'
 import Timer from 'components/Timer'
 import Lifes from 'components/Lifes'
@@ -80,7 +81,7 @@ export default function Home (): JSX.Element {
               </Box>
               <ImageVisor {...data} />
               <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb='40px' position='relative'>
-                <Box align='center' mb='15px'><Timer /></Box>
+                <Box textAlign='center' mb='15px'><Timer /></Box>
                 <Text as='h1' fontSize='40px' mb='25px' align='center'>What the Flick?</Text>
                 <Box flex='1'><MovieSelector ref={finalRef} /></Box>
               </Container>

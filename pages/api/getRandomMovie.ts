@@ -1,12 +1,15 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { PrismaClient } from '@prisma/client'
 import settings from 'settings'
 import { fetcher } from 'lib/fetcher'
 import { encrypt } from 'lib/encryption'
 import { randomIntFromInterval } from 'lib/calculations'
-import { PrismaClient } from '@prisma/client'
+
 const prisma = new PrismaClient()
 
-export default async function getRandomMovie (req, res) {
-  const history = JSON.parse(req.body).history?.map(e => parseFloat(e)) || []
+export default async function getRandomMovie (req: NextApiRequest, res: NextApiResponse) {
+  const historyRaw = req.body ? JSON.parse(req.body).history : []
+  const history = historyRaw.map((e: string) => parseFloat(e))
 
   /*
    * Getting a random Id from the database, taking into account the already history movies.
@@ -14,9 +17,9 @@ export default async function getRandomMovie (req, res) {
    * then we can get a random order id based in the minumun, maximum, and already history
   */
   async function getRandomId () {
-    const moviesCount = await prisma.MovieSetBegginer.count()
+    const moviesCount = await prisma.movieSetBegginer.count()
     if (moviesCount > history.length) {
-      const randomMovie = await prisma.MovieSetBegginer.findMany({
+      const randomMovie = await prisma.movieSetBegginer.findMany({
         where: {
           order: randomIntFromInterval(1, moviesCount, history)
         }

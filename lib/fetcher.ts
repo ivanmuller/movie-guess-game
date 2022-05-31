@@ -22,7 +22,7 @@ export const fetcherResults = (url: string) => {
     }).catch(null)
 }
 
-export const awaitFetcher = async (url, history = []) => {
+export const awaitFetcher = async (url: string, history = []) => {
   const res = await fetch(url, {
     method: 'POST',
     body: JSON.stringify({ history })

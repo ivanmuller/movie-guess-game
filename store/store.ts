@@ -1,8 +1,8 @@
 import create from 'zustand'
 import settings from 'settings'
-import { AppState } from 'types'
+import { IAppState } from 'interfaces'
 
-const useStore = create<AppState>(set => ({
+const useStore = create<IAppState>(set => ({
   score: 0,
   lifes: settings.lifes,
   time: settings.time,

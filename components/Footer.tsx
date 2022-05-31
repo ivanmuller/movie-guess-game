@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
+import { Container, UnorderedList, ListItem, Text, Image } from '@chakra-ui/react'
 import i18nData from 'i18n.json'
 import logoGithub from 'public/github.png'
-import { Container, UnorderedList, ListItem, Text, Image } from '@chakra-ui/react'
 
 export default function Footer (): JSX.Element {
   const { locales } = i18nData

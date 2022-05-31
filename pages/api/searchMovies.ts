@@ -1,7 +1,8 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import settings from 'settings'
 import { fetcher } from 'lib/fetcher'
 
-export default async function getMovie (req, res) {
+export default async function getMovie (req: NextApiRequest, res: NextApiResponse) {
   if (!req.query.query) {
     return res.status(404).json({ error: 'Not value for query' })
   }

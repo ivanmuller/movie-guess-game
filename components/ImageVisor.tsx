@@ -1,16 +1,16 @@
-import settings from 'settings'
 import React, { useState, useEffect } from 'react'
 import { Center, Image, Box } from '@chakra-ui/react'
-import { ImageVisorProps } from 'types'
+import settings from 'settings'
+import { IImageVisor } from 'interfaces'
 
-const Cap = ({ type }) => {
+const Cap = ({ type }: { type:string }) => {
   const gradient = `linear(to-${type}, rgba(0,0,0,0), rgba(0,0,0,1))`
   return (
     <Box position='relative' w='100px' mr={type === 'r' ? 0 : '-99px'} ml={type === 'l' ? 0 : '-99px'} bgGradient={gradient} ></Box>
   )
 }
 
-function ImageVisor ({ filePath, filePathAlt }: ImageVisorProps): JSX.Element {
+function ImageVisor ({ filePath, filePathAlt }: IImageVisor): JSX.Element {
   const [showingImg, setShowingImg] = useState<string>('')
 
   useEffect(() => {
@@ -27,14 +27,14 @@ function ImageVisor ({ filePath, filePathAlt }: ImageVisorProps): JSX.Element {
 
   return (
     <Center backgroundColor='#000' alignItems="stretch" position="relative">
-      <Cap type="l"></Cap>
+      <Cap type='l'></Cap>
       <Image
         w='1280px' h={['50vh', null, '70vh']}
         objectFit='cover'
         src={settings.urls.imageBaseBackdrop(showingImg)}
         alt=''
       />
-      <Cap type="r"></Cap>
+      <Cap type='r'></Cap>
       <Box position='absolute' w='100%' height='50%' bottom='0' bgGradient='linear(to-b, rgba(0,0,0,0), rgba(0,0,0,1))'></Box>
     </Center>
   )

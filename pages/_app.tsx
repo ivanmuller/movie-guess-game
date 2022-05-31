@@ -5,11 +5,11 @@ import { ChakraProvider } from '@chakra-ui/react'
 import 'styles/_globals.css'
 
 function MyApp ({ Component, pageProps }: AppProps) : JSX.Element {
-  /*useEffect(() => {
+  /* useEffect(() => {
     const disableRightClick = (e) => { e.preventDefault(); alert('Sorry, you\'re not allowed to cheat 🤣') }
     window.addEventListener('contextmenu', disableRightClick)
     return () => window.removeEventListener('contextmenu', disableRightClick)
-  }, [])*/
+  }, []) */
 
   return (
     <ChakraProvider>
