@@ -62,7 +62,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
 
   return (
     <Flex>
-      <FormControl w='100%' borderRadius='22px' backgroundColor='#342E59'>
+      <FormControl>
         <AutoComplete
           key={uniqueId}
           restoreOnBlurIfEmpty={false}
@@ -72,15 +72,11 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           value=''
           selectOnFocus={false}>
           <AutoCompleteInput
-            variant='filled'
-            px='30px'
+            layerStyle='formInput'
+            border={0}
             borderRadius='22px'
-            focusBorderColor='#342E59'
-            height='81'
-            fontSize='20px'
-            backgroundColor='#342E59'
+            focusBorderColor='none'
             placeholder='Your answer...'
-            _hover={{ backgroundColor: '#342E59' }}
             onChange={(e) => getOptions(e.target.value)} ref={ref} />
             <AutoCompleteList>
               {selectorValues.map((item, cid) => {
@@ -97,10 +93,10 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
                     getValue={() => `${id}`}
                     fontSize='18px'
                     mx='-0.5rem'
-                    borderRadius='18px'
-                    _hover={{ backgroundColor: '#FFF', color: '#272042' }}
-                    _focus={{ backgroundColor: '#FFF', color: '#272042' }}
-                    _active={{ backgroundColor: '#FFF', color: '#272042' }}
+                    borderRadius='14px'
+                    _hover={{ backgroundColor: 'brand.white', color: 'brand.base' }}
+                    _focus={{ backgroundColor: 'brand.white', color: 'brand.base' }}
+                    _active={{ backgroundColor: 'brand.white', color: 'brand.base' }}
                   >
                     {thisrender}
                   </AutoCompleteItem>

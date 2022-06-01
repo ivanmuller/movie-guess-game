@@ -62,37 +62,40 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
         size='xl'
         onClose={() => false}
       >
-        <ModalOverlay backdropFilter='blur(4px)' bg='rgba(0,0,0,0.6)' />
-        <ModalContent backgroundColor="#272042">
+        <ModalOverlay backdropFilter='blur(4px)' bg='rgbas.black06' />
+        <ModalContent backgroundColor="brand.base">
           <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? 'You\'re right!' : 'Fail!'}</Text></ModalHeader>
           <ModalBody>
             {status === 0 && (
-              <Text as='p' borderY='1px' py='12px' borderColor='rgba(255,255,255,0.2)' fontSize='25px' mb='25px'>
+              // Incorrect answer
+              <Text as='p' layerStyle='modalBody'>
                 <Lifes override={lifes - 1} />
-                <Text fontSize='18px' mt='12px' color='rgba(255,255,255,0.7)'>{lifes - 1} {lifes - 1 === 1 ? 'life' : 'lifes'} left</Text>
+                <Text as='span' mt={4} layerStyle='modalBodyLighter'>{lifes - 1} {lifes - 1 === 1 ? 'life' : 'lifes'} left</Text>
               </Text>
             )}
 
             {status === 1 && (
+              // Correct answer
               <>
-                <Text as='p' borderY='1px' py='12px' borderColor='rgba(255,255,255,0.2)' fontSize='25px' mb='25px'>
+                <Text as='p' layerStyle='modalBody'>
                   New score: {score + time}
-                  <Text as='span' fontSize='18px' color='rgba(255,255,255,0.7)'> (+{time})</Text>
+                  <Text as='span' layerStyle='modalBodyLighter'> (+{time})</Text>
                 </Text>
                 <MovieData />
               </>
             )}
 
             {status === 2 && (
+              // Incorrect answer: Game Over
               <>
-                <Text as='p' align='center' borderY='1px' py='12px' borderColor='rgba(255,255,255,0.2)' fontSize='25px' mb='25px'>
-                  Game Over <br /><Text as='span' fontSize='18px' color='rgba(255,255,255,0.7)'>Your final Score: {score}</Text>
+                <Text as='p' align='center' layerStyle='modalBody'>
+                  Game Over <br /><Text as='span' layerStyle='modalBodyLighter'>Your final Score: {score}</Text>
                 </Text>
               </>
             )}
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='gray' mt={3} onClick={onFinishRound} ref={initialRef}>
+            <Button colorScheme='gray' mt={4} onClick={onFinishRound} ref={initialRef}>
               {status === 2 ? 'New Game' : 'Next Movie'}
             </Button>
           </ModalFooter>

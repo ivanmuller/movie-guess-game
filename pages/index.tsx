@@ -61,15 +61,15 @@ export default function Home (): JSX.Element {
 
       <div className={isLoading ? t('loading') : ''}>
         {(isLoading || error) && (
-        <Flex direction='column' justify='center' align='center' minHeight="100vh">
-          {isLoading && <Text as='h1' fontSize='40px' mb='25px'>Loading...</Text>}
-          {error && <Text as='h1' fontSize='40px' mb='25px'>{t('errorPrefix')} {error.info}</Text>}
+        <Flex layerStyle='fullCenter'>
+          {isLoading && <Text layerStyle='heading1' as='h1'>Loading...</Text>}
+          {error && <Text layerStyle='heading1' as='h1'>{t('errorPrefix')} {error.info}</Text>}
         </Flex>
         )}
         {isReady && (
-          <Flex direction='column' justify='space-between' minHeight="100vh">
+          <Flex layerStyle='columnSeparated'>
             <Box>
-              <Box position='absolute' w='100%' zIndex={2} pt='24px'>
+              <Box position='absolute' w='100%' zIndex={2} pt={6}>
                 <Container maxW='container.lg'>
                   <Flex justify='end'>
                     <Box>
@@ -80,16 +80,14 @@ export default function Home (): JSX.Element {
                 </Container>
               </Box>
               <ImageVisor {...data} />
-              <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb='40px' position='relative'>
-                <Box textAlign='center' mb='15px'><Timer /></Box>
-                <Text as='h1' fontSize='40px' mb='25px' align='center'>What the Flick?</Text>
+              <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
+                <Box textAlign='center' mb={4}><Timer /></Box>
+                <Text layerStyle='heading1' as='h1'>What the Flick?</Text>
                 <Box flex='1'><MovieSelector ref={finalRef} /></Box>
               </Container>
               <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
             </Box>
-            <Box borderTop='1px' borderColor='rgba(255,255,255,0.2)'>
-              <Footer />
-            </Box>
+            <Footer />
           </Flex>
         )}
       </div>

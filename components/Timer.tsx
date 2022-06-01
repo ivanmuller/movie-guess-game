@@ -37,7 +37,15 @@ function Timer (): JSX.Element {
 
   return (
     <Box>
-      <CircularProgress value={timeDecimal} trackColor='rgba(255,255,255,0.4)' color='rgba(255,255,255,1)' size={{ base: '100px', md: null, lg: '140px' }} thickness='4px' min={0} max={settings.time}>
+      <CircularProgress
+        value={timeDecimal}
+        trackColor='rgbas.white04'
+        color='brand.white'
+        // @ts-ignore:next-line
+        size={{ base: '100px', md: null, lg: '140px' }}
+        thickness='4px'
+        min={0}
+        max={settings.time}>
         <CircularProgressLabel>
           <Text as='h3' fontSize={{ base: '25px', md: null, lg: '50px' }} align="center">{time}</Text>
         </CircularProgressLabel>

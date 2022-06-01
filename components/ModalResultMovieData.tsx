@@ -15,10 +15,10 @@ const MovieData = (): JSX.Element => {
   return (
     <>
       {isReady && (
-        <Flex gap='6'>
+        <Flex gap={6}>
           <Box w='140px'><img src={settings.urls.imageBaseBackdrop(data.poster_path)} /></Box>
           <Box flex='1'>
-            <Text as='h3' fontSize='30px'>{data.original_title}</Text>
+            <Text as='h3' layerStyle='heading2'>{data.original_title}</Text>
             <p>{data.overview}</p>
           </Box>
         </Flex>
