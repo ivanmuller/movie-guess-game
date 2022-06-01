@@ -22,7 +22,7 @@
         "react-hooks"
     ],
     "rules": {
-        "@typescript-eslint/ban-ts-ignore": "allow-with-description",
+        "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": [
