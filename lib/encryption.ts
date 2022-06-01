@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SHA512 from 'crypto-js/SHA512'
 
 export const encrypt = (str: string) => {
