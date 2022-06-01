@@ -4,7 +4,7 @@ const nextTranslate = require('next-translate')
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true
+    ignoreBuildErrors: false
   },
   ...nextTranslate()
 }
