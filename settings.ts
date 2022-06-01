@@ -12,7 +12,7 @@ const settings = {
     searchMovies: (inputValue) => `https://api.themoviedb.org/3/search/movie?api_key=${settings.movieDbApiKey}&language=en-US&query=${inputValue}&page=1&include_adult=false`,
     imageBaseBackdrop: (imgFile, width = 1280) => `https://image.tmdb.org/t/p/w${width}${imgFile}`
   },
-  time: 2000,
+  time: 20,
   lifes: 3
 }
 
