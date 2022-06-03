@@ -33,6 +33,7 @@ export default function Home (): JSX.Element {
   const isLoading = !data && !error
 
   const newMovie = () => {
+    // @ts-ignore:next-line
     cache.clear()
     mutate().then(() => {
       resetTime()

@@ -5,7 +5,7 @@ import { fetcherResults } from 'lib/fetcher'
 
 const prisma = new PrismaClient()
 
-export default function generateIds(req: NextApiRequest, res: NextApiResponse) {
+export default function generateIds (req: NextApiRequest, res: NextApiResponse) {
   const pages = 25 // 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)
 

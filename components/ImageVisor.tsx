@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Center, Image, Box } from '@chakra-ui/react'
+import { Center, Image, Box, Show } from '@chakra-ui/react'
 import settings from 'settings'
 import { IImageVisor } from 'interfaces'
 import useStore from 'store/store'
@@ -8,7 +8,7 @@ import tvStatic from 'public/tv-static.gif'
 const Cap = ({ type }: { type:string }) => {
   const gradient = `linear(to-${type}, rgbas.black0, rgbas.black1)`
   return (
-    <Box position='relative' w='100px' mr={type === 'r' ? 0 : '-99px'} ml={type === 'l' ? 0 : '-99px'} bgGradient={gradient} ></Box>
+    <Show above='md'><Box position='relative' w='100px' mr={type === 'r' ? 0 : '-99px'} ml={type === 'l' ? 0 : '-99px'} bgGradient={gradient} ></Box></Show>
   )
 }
 
