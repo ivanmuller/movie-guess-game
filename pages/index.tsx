@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useSWR from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Container, Flex, Box, Text } from '@chakra-ui/react'
@@ -28,11 +28,12 @@ export default function Home (): JSX.Element {
 
   const finalRef = React.useRef<HTMLDivElement>(null)
 
+  const { cache } = useSWRConfig()
   const { data, mutate, error } = useSWR('randomMovie', () => awaitFetcher('/api/getRandomMovie', history))
   const isLoading = !data && !error
-  const isReady = !error && !isLoading
 
   const newMovie = () => {
+    cache.clear()
     mutate().then(() => {
       resetTime()
       resetAnswer()
@@ -60,36 +61,38 @@ export default function Home (): JSX.Element {
       </Head>
 
       <div className={isLoading ? t('loading') : ''}>
-        {(isLoading || error) && (
-        <Flex layerStyle='fullCenter'>
-          {isLoading && <Text layerStyle='heading1' as='h1'>Loading...</Text>}
-          {error && <Text layerStyle='heading1' as='h1'>{t('errorPrefix')} {error.info}</Text>}
-        </Flex>
-        )}
-        {isReady && (
-          <Flex layerStyle='columnSeparated'>
-            <Box>
-              <Box position='absolute' w='100%' zIndex={2} pt={6}>
-                <Container maxW='container.lg'>
-                  <Flex justify='end'>
-                    <Box>
-                      <Lifes />
-                      <ScoreView />
-                    </Box>
-                  </Flex>
+        {error
+          ? (
+            <Flex layerStyle='fullCenter'>
+              {error && <Text layerStyle='heading1' as='h1'>{t('errorPrefix')} {error.info}</Text>}
+            </Flex>
+            )
+          : (
+            <Flex layerStyle='columnSeparated'>
+              <Box>
+                <Box position='absolute' w='100%' zIndex={2} pt={6}>
+                  <Container maxW='container.lg'>
+                    <Flex justify='end'>
+                      <Box>
+                        <Lifes />
+                        <ScoreView />
+                      </Box>
+                    </Flex>
+                  </Container>
+                </Box>
+                <ImageVisor {...data} />
+                <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
+                  <Box textAlign='center' mb={4}><Timer /></Box>
+                  <Text layerStyle='heading1' as='h1'>What the Flick?</Text>
+                  <Box flex='1'><MovieSelector ref={finalRef} /></Box>
                 </Container>
+                {!isLoading &&
+                  <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
+                }
               </Box>
-              <ImageVisor {...data} />
-              <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
-                <Box textAlign='center' mb={4}><Timer /></Box>
-                <Text layerStyle='heading1' as='h1'>What the Flick?</Text>
-                <Box flex='1'><MovieSelector ref={finalRef} /></Box>
-              </Container>
-              <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
-            </Box>
-            <Footer />
-          </Flex>
-        )}
+              <Footer />
+            </Flex>
+            )}
       </div>
     </>
   )

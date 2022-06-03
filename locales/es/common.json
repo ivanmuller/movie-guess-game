@@ -4,5 +4,5 @@
   "language-name-en": "Eng",
   "title": "ES | Movie Guess App",
   "loading": "Cargando...",
-  "errorPrefix": "Error:"
+  "errorPrefix": "Error "
 }

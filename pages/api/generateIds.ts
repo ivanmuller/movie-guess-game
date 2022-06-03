@@ -1,11 +1,11 @@
-import type { NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 import settings from 'settings'
 import { fetcherResults } from 'lib/fetcher'
 
 const prisma = new PrismaClient()
 
-export default function generateIds (res: NextApiResponse) {
+export default function generateIds(req: NextApiRequest, res: NextApiResponse) {
   const pages = 25 // 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)
 
@@ -52,7 +52,7 @@ export default function generateIds (res: NextApiResponse) {
 
     if (fullFilledSources.length > 0) {
       deleteAndUpdateMovieSet().then(() => {
-        return res.status(200).json({ message: 'done' })
+        return res.status(200).json({ message: `${fullFilledSources.length} created` })
       })
     }
   }).catch(error => res.status(404).json({ error: error.toString() }))

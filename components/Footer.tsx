@@ -22,7 +22,7 @@ export default function Footer (): JSX.Element {
           )}
         </UnorderedList>
         <span>
-          @2022 <Text as='a' href='https://github.com/ivanmuller' target='_blank' rel='noreferrer' _hover={{ borderBottom: '1px' }}>Iván Müller <Image display='inline-block' verticalAlign='baseline' alt='Iván Müller Github' src={logoGithub.src} w='16px' h='16px' /></Text>
+          @2022 <Text as='a' href='https://github.com/ivanmuller/movie-guess-game' target='_blank' rel='noreferrer' _hover={{ borderBottom: '1px' }}>Iván Müller <Image display='inline-block' verticalAlign='baseline' alt='Iván Müller Github' src={logoGithub.src} w='16px' h='16px' /></Text>
         </span>
       </Container>
     </Box>

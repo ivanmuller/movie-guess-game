@@ -68,7 +68,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
           <ModalBody>
             {status === 0 && (
               // Incorrect answer
-              <Text as='p' layerStyle='modalBody'>
+              <Text as='div' layerStyle='modalBody'>
                 <Lifes override={lifes - 1} />
                 <Text as='span' mt={4} layerStyle='modalBodyLighter'>{lifes - 1} {lifes - 1 === 1 ? 'life' : 'lifes'} left</Text>
               </Text>
@@ -77,7 +77,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
             {status === 1 && (
               // Correct answer
               <>
-                <Text as='p' layerStyle='modalBody'>
+                <Text as='div' layerStyle='modalBody'>
                   New score: {score + time}
                   <Text as='span' layerStyle='modalBodyLighter'> (+{time})</Text>
                 </Text>
@@ -88,7 +88,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
             {status === 2 && (
               // Incorrect answer: Game Over
               <>
-                <Text as='p' align='center' layerStyle='modalBody'>
+                <Text as='div' align='center' layerStyle='modalBody'>
                   Game Over <br /><Text as='span' layerStyle='modalBodyLighter'>Your final Score: {score}</Text>
                 </Text>
               </>
