@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text } from '@chakra-ui/react'
 import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
@@ -7,6 +8,8 @@ import Lifes from 'components/Lifes'
 import { IModalResults } from 'interfaces'
 
 const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }: IModalResults, ref): JSX.Element => {
+  const { t } = useTranslation('common')
+
   const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
   const answer = useStore(state => state.answer)
   const encriptedAnswerId = encrypt(answer)
@@ -64,13 +67,13 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
       >
         <ModalOverlay backdropFilter='blur(4px)' bg='rgbas.black06' />
         <ModalContent backgroundColor="brand.base">
-          <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? 'You\'re right!' : 'Fail!'}</Text></ModalHeader>
+          <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? t('result.correct') : t('result.incorrect')}</Text></ModalHeader>
           <ModalBody>
             {status === 0 && (
               // Incorrect answer
               <Text as='div' layerStyle='modalBody'>
                 <Lifes override={lifes - 1} />
-                <Text as='span' mt={4} layerStyle='modalBodyLighter'>{lifes - 1} {lifes - 1 === 1 ? 'life' : 'lifes'} left</Text>
+                <Text as='span' mt={4} layerStyle='modalBodyLighter'>{lifes - 1} {lifes - 1 === 1 ? t('lifes.singular') : t('lifes.plural')} {t('lifes.append')}</Text>
               </Text>
             )}
 
@@ -78,7 +81,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
               // Correct answer
               <>
                 <Text as='div' layerStyle='modalBody'>
-                  New score: {score + time}
+                  {t('score.new')} {score + time}
                   <Text as='span' layerStyle='modalBodyLighter'> (+{time})</Text>
                 </Text>
                 <MovieData />
@@ -89,14 +92,14 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
               // Incorrect answer: Game Over
               <>
                 <Text as='div' align='center' layerStyle='modalBody'>
-                  Game Over <br /><Text as='span' layerStyle='modalBodyLighter'>Your final Score: {score}</Text>
+                  {t('result.gameOver')}<br /><Text as='span' layerStyle='modalBodyLighter'>{t('score.final')} {score}</Text>
                 </Text>
               </>
             )}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='gray' mt={4} onClick={onFinishRound} ref={initialRef}>
-              {status === 2 ? 'New Game' : 'Next Movie'}
+              {status === 2 ? t('actions.new') : t('actions.next')}
             </Button>
           </ModalFooter>
         </ModalContent>

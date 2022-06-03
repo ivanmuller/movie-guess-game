@@ -17,7 +17,9 @@ function ImageVisor ({ filePath, filePathAlt }: IImageVisor): JSX.Element {
   const timeRunning = useStore(state => state.timeRunning)
 
   useEffect(() => {
-    setShowingImg(filePath)
+    if (filePath) {
+      setShowingImg(filePath)
+    }
   }, [filePath])
 
   useEffect(() => {

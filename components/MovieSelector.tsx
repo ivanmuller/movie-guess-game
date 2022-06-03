@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { Flex, FormControl } from '@chakra-ui/react'
 import { AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from '@choc-ui/chakra-autocomplete'
 import useStore from 'store/store'
 
 const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
+  const { t } = useTranslation('common')
+
   const [uniqueId, setUniqueId] = useState(0)
   const [selectorValues, setSelectorValues] = useState([])
-  const [messageNoResult, setMessageNotResult] = useState('No results')
+  const [messageNoResult, setMessageNotResult] = useState(t('selector.status.noResults'))
 
   const triggerTime = useStore(state => state.triggerTime)
   const answer = useStore(state => state.answer)
@@ -22,7 +25,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
       setSelectorValues([])
     }
     if (inputValue.length > 2) {
-      setMessageNotResult('Loading...')
+      setMessageNotResult(t('selector.status.loading'))
       clearTimeout(filterTimeout)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       filterTimeout = setTimeout(() => {
@@ -31,7 +34,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           .then(data => {
             setSelectorValues(data.results)
             if (data.results.length === 0) {
-              setMessageNotResult('No results')
+              setMessageNotResult(t('selector.status.noResults'))
             }
           })
           .catch(() => {
@@ -40,7 +43,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
       }, 500)
     } else {
       setSelectorValues([])
-      setMessageNotResult('3 chars minimum')
+      setMessageNotResult(t('selector.status.minimum'))
     }
   }, [])
 
@@ -74,9 +77,10 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
           <AutoCompleteInput
             layerStyle='formInput'
             border={0}
+            fontSize='18px'
             borderRadius='22px'
             focusBorderColor='none'
-            placeholder='Your answer...'
+            placeholder={t('selector.placeholder')}
             onChange={(e) => getOptions(e.target.value)} ref={ref} />
             <AutoCompleteList>
               {selectorValues.map((item, cid) => {

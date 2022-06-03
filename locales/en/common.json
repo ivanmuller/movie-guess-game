@@ -1,8 +1,37 @@
 {
   "code": "en-US",
-  "language-name-es": "Esp",
   "language-name-en": "Eng",
-  "title": "EN | Movie Guess App",
+  "title": "Movie Guess Game",
   "loading": "Loading...",
-  "errorPrefix": "Error "
+  "errorPrefix": "Error ",
+  "mainAnswer": "What is this Movie?",
+  "selector": {
+    "placeholder": "Your answer...",
+    "status": {
+      "noResults": "No Results",
+      "minimum": "3 chars minimum",
+      "loading": "Loading..."
+    }
+  },
+  "result": {
+    "correct": "You're right!",
+    "incorrect": "Fail!",
+    "gameOver": "Game Over"
+  },
+  "lifes": {
+    "plural": "Lifes",
+    "singular": "Life",
+    "append": "left"
+  },
+  "score": {
+    "title": "Score:",
+    "new": "New score:",
+    "final": "Your final Score:"
+  },
+  "actions": {
+    "new": "New Game",
+    "next": "Next Movie"
+  },
+  "rightClickMessage": "Sorry, you're not allowed to cheat 🤣\r\nPress F12 to see developer tools",
+  "consoleLogMessage": "%c⛔ Are you trying to find the real ID of the movie? Well, I won't be so easy..."
 }

@@ -2,7 +2,7 @@ const dev = process.env.NODE_ENV !== 'production'
 
 const settings = {
   host: dev ? 'http://localhost:3000' : 'https://usdblue.vercel.app',
-  appTitle: 'Movie Guess App',
+  appTitle: 'Movie Guess Game',
   movieDbApiKey: process.env.MOVIE_API_KEY,
   md5addition: '__additionalCharacters&$?',
   urls: {
@@ -12,6 +12,7 @@ const settings = {
     searchMovies: (inputValue) => `https://api.themoviedb.org/3/search/movie?api_key=${settings.movieDbApiKey}&language=en-US&query=${inputValue}&page=1&include_adult=false`,
     imageBaseBackdrop: (imgFile, width = 1280) => `https://image.tmdb.org/t/p/w${width}${imgFile}`
   },
+  consoleLogStyles: ['font-size: 14px', 'font-family: monospace', 'background: white', 'display: block', 'color: black', 'padding: 12px 24px', 'border: 1px dashed;'],
   time: 20,
   lifes: 3
 }

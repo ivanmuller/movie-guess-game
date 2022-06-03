@@ -84,7 +84,7 @@ export default function Home (): JSX.Element {
                 <ImageVisor {...data} />
                 <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
                   <Box textAlign='center' mb={4}><Timer /></Box>
-                  <Text layerStyle='heading1' as='h1'>What the Flick?</Text>
+                  <Text layerStyle='heading1' as='h1'>{t('mainAnswer')}</Text>
                   <Box flex='1'><MovieSelector ref={finalRef} /></Box>
                 </Container>
                 {!isLoading &&
