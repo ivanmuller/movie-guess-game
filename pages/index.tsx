@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import useSWR, { useSWRConfig } from 'swr'
-import React from 'react'
+import useSWR from 'swr'
+import React, { useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Container, Flex, Box, Text } from '@chakra-ui/react'
 import { awaitFetcher } from 'lib/fetcher'
@@ -17,7 +17,10 @@ import Footer from 'components/Footer'
 export default function Home (): JSX.Element {
   const { t } = useTranslation('common')
 
+  const [forcedStatic, setForcedStatic] = useState(false)
+
   const resetTime = useStore(state => state.resetTime)
+  const triggerTime = useStore(state => state.triggerTime)
   const resetLifes = useStore(state => state.resetLifes)
   const resetScore = useStore(state => state.resetScore)
   const resetAnswer = useStore(state => state.resetAnswer)
@@ -28,16 +31,19 @@ export default function Home (): JSX.Element {
 
   const finalRef = React.useRef<HTMLDivElement>(null)
 
-  const { cache } = useSWRConfig()
   const { data, mutate, error } = useSWR('randomMovie', () => awaitFetcher('/api/getRandomMovie', history))
   const isLoading = !data && !error
 
   const newMovie = () => {
-    // @ts-ignore:next-line
-    cache.clear()
+    resetTime()
+    triggerTime()
+    setForcedStatic(true)
     mutate().then(() => {
-      resetTime()
-      resetAnswer()
+      setTimeout(() => {
+        triggerTime()
+        resetAnswer()
+        setForcedStatic(false)
+      }, 1200)
     })
   }
 
@@ -81,7 +87,7 @@ export default function Home (): JSX.Element {
                     </Flex>
                   </Container>
                 </Box>
-                <ImageVisor {...data} />
+                <ImageVisor forcedStatic={forcedStatic} {...data} />
                 <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
                   <Box textAlign='center' mb={4}><Timer /></Box>
                   <Text layerStyle='heading1' as='h1'>{t('mainAnswer')}</Text>

@@ -1,4 +1,5 @@
 export interface IImageVisor {
+  forcedStatic: boolean;
   filePath: string;
   filePathAlt: string;
 }

@@ -12,7 +12,7 @@ const Cap = ({ type }: { type:string }) => {
   )
 }
 
-function ImageVisor ({ filePath, filePathAlt }: IImageVisor): JSX.Element {
+function ImageVisor ({ forcedStatic, filePath, filePathAlt }: IImageVisor): JSX.Element {
   const [showingImg, setShowingImg] = useState<string>('')
   const timeRunning = useStore(state => state.timeRunning)
 
@@ -38,12 +38,8 @@ function ImageVisor ({ filePath, filePathAlt }: IImageVisor): JSX.Element {
       <Image
         w='1280px' h={['50vh', null, '70vh']}
         objectFit='cover'
-        src={settings.urls.imageBaseBackdrop(showingImg)}
+        src={forcedStatic || !showingImg ? tvStatic.src : settings.urls.imageBaseBackdrop(showingImg)}
         alt=''
-        backgroundImage={`url(${tvStatic.src})`}
-        backgroundPosition='center'
-        backgroundRepeat='no-repeat'
-        backgroundSize='cover'
       />
       <Cap type='r'></Cap>
       <Box position='absolute' w='100%' height='50%' bottom={0} bgGradient='linear(to-b, rgbas.black0, rgbas.black1)'></Box>
