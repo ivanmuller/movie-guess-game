@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import useSWR from 'swr'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
+import settings from 'settings'
 import { Container, Flex, Box, Text } from '@chakra-ui/react'
 import { awaitFetcher } from 'lib/fetcher'
 import useStore from 'store/store'
@@ -17,10 +18,11 @@ import Footer from 'components/Footer'
 export default function Home (): JSX.Element {
   const { t } = useTranslation('common')
 
-  const [forcedStatic, setForcedStatic] = useState(false)
+  const [forcedNoSignal, setForcedNoSignal] = useState(false)
 
   const resetTime = useStore(state => state.resetTime)
-  const triggerTime = useStore(state => state.triggerTime)
+  const pauseTime = useStore(state => state.pauseTime)
+  const playTime = useStore(state => state.playTime)
   const resetLifes = useStore(state => state.resetLifes)
   const resetScore = useStore(state => state.resetScore)
   const resetAnswer = useStore(state => state.resetAnswer)
@@ -34,24 +36,30 @@ export default function Home (): JSX.Element {
   const { data, mutate, error } = useSWR('randomMovie', () => awaitFetcher('/api/getRandomMovie', history))
   const isLoading = !data && !error
 
+  useEffect(() => {
+    if (data) {
+      playTime()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+
   const newMovie = () => {
     resetTime()
-    triggerTime()
-    setForcedStatic(true)
+    pauseTime()
+    setForcedNoSignal(true)
     mutate().then(() => {
       setTimeout(() => {
-        triggerTime()
         resetAnswer()
-        setForcedStatic(false)
-      }, 1200)
+        setForcedNoSignal(false)
+      }, settings.delayBetweenMovies)
     })
   }
 
   const newGame = () => {
     resetHistory()
-    newMovie()
     resetLifes()
     resetScore()
+    newMovie()
   }
 
   const loseLife = () => {
@@ -87,9 +95,11 @@ export default function Home (): JSX.Element {
                     </Flex>
                   </Container>
                 </Box>
-                <ImageVisor forcedStatic={forcedStatic} {...data} />
+                <ImageVisor forcedNoSignal={forcedNoSignal} {...data} />
                 <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
-                  <Box textAlign='center' mb={4}><Timer /></Box>
+                  <Box textAlign='center' mb={4}>
+                    <Timer />
+                  </Box>
                   <Text layerStyle='heading1' as='h1'>{t('mainAnswer')}</Text>
                   <Box flex='1'><MovieSelector ref={finalRef} /></Box>
                 </Container>

@@ -14,7 +14,8 @@ const settings = {
   },
   consoleLogStyles: ['font-size: 14px', 'font-family: monospace', 'background: white', 'display: block', 'color: black', 'padding: 12px 24px', 'border: 1px dashed;'],
   time: 20,
-  lifes: 3
+  lifes: 3,
+  delayBetweenMovies: 0
 }
 
 export default settings

@@ -1,5 +1,5 @@
 export interface IImageVisor {
-  forcedStatic: boolean;
+  forcedNoSignal: boolean;
   filePath: string;
   filePathAlt: string;
 }
@@ -24,7 +24,8 @@ export interface IAppState {
   setAnswer: (movieId: string | null) => void;
   resetScore: () => void;
   resetTime: () => void;
-  triggerTime: () => void;
+  playTime: () => void;
+  pauseTime: () => void;
   resetLifes: () => void;
   resetAnswer: () => void;
   addHistory: (movieOrder: number) => void;

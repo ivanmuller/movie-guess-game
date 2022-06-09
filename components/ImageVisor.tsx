@@ -3,7 +3,7 @@ import { Center, Image, Box, Show } from '@chakra-ui/react'
 import settings from 'settings'
 import { IImageVisor } from 'interfaces'
 import useStore from 'store/store'
-import tvStatic from 'public/tv-static.gif'
+import noSignal from 'public/no-signal.gif'
 
 const Cap = ({ type }: { type:string }) => {
   const gradient = `linear(to-${type}, rgbas.black0, rgbas.black1)`
@@ -12,7 +12,7 @@ const Cap = ({ type }: { type:string }) => {
   )
 }
 
-function ImageVisor ({ forcedStatic, filePath, filePathAlt }: IImageVisor): JSX.Element {
+function ImageVisor ({ forcedNoSignal, filePath, filePathAlt }: IImageVisor): JSX.Element {
   const [showingImg, setShowingImg] = useState<string>('')
   const timeRunning = useStore(state => state.timeRunning)
 
@@ -38,7 +38,7 @@ function ImageVisor ({ forcedStatic, filePath, filePathAlt }: IImageVisor): JSX.
       <Image
         w='1280px' h={['50vh', null, '70vh']}
         objectFit='cover'
-        src={forcedStatic || !showingImg ? tvStatic.src : settings.urls.imageBaseBackdrop(showingImg)}
+        src={forcedNoSignal || !showingImg ? noSignal.src : settings.urls.imageBaseBackdrop(showingImg)}
         alt=''
       />
       <Cap type='r'></Cap>

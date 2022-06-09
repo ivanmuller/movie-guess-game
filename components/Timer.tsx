@@ -9,7 +9,7 @@ function Timer (): JSX.Element {
   const timeRunning = useStore(state => state.timeRunning)
   const decreaseTime = useStore(state => state.decreaseTime)
   const setAnswer = useStore(state => state.setAnswer)
-  const triggerTime = useStore(state => state.triggerTime)
+  const pauseTime = useStore(state => state.pauseTime)
   const openPopup = () => useStore.setState({ answerPopupOpened: true })
   const [timeDecimal, setTimeDecimal] = useState(time)
 
@@ -30,7 +30,7 @@ function Timer (): JSX.Element {
     if (time === 0) {
       openPopup()
       setAnswer(null)
-      triggerTime()
+      pauseTime()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])

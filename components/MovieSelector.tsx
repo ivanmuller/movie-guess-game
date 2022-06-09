@@ -11,7 +11,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
   const [selectorValues, setSelectorValues] = useState([])
   const [messageNoResult, setMessageNotResult] = useState(t('selector.status.noResults'))
 
-  const triggerTime = useStore(state => state.triggerTime)
+  const pauseTime = useStore(state => state.pauseTime)
   const answer = useStore(state => state.answer)
   const setAnswer = useStore(state => state.setAnswer)
   const openPopup = () => useStore.setState({ answerPopupOpened: true })
@@ -53,7 +53,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
       return
     }
     setAnswer(movieId)
-    triggerTime()
+    pauseTime()
     openPopup()
     setUniqueId(Date.now())
   }

@@ -16,7 +16,6 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
   const score = useStore(state => state.score)
   const time = useStore(state => state.time)
   const lifes = useStore(state => state.lifes)
-  const triggerTime = useStore(state => state.triggerTime)
   const scorePrev = useStore(state => state.score)
   const answerPopupOpened = useStore(state => state.answerPopupOpened)
   const addHistory = useStore(state => state.addHistory)
@@ -25,7 +24,6 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
 
   const onFinishRound = () => {
     closePopup()
-    triggerTime()
     newMovie()
     if (encriptedAnswerId === shaId) {
       modifyScore()
