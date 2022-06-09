@@ -15,7 +15,7 @@ const useNewMovie = (mutate : any) => {
     setTimeout(() => {
       mutate().then(() => {
         resetAnswer()
-        setTimeout(() => noSignalOFF(), 500)
+        setTimeout(() => noSignalOFF(), 100)
         // newMovie()
       })
     }, settings.delayBetweenMovies)

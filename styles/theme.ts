@@ -63,6 +63,7 @@ const theme = {
     },
     heading2: {
       fontSize: '30px',
+      lineHeight: 1.2,
       mb: 4
     },
     lifeImg: {

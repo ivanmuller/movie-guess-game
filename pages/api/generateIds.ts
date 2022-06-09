@@ -6,6 +6,20 @@ import { fetcherResults } from 'lib/fetcher'
 const prisma = new PrismaClient()
 
 export default function generateIds (req: NextApiRequest, res: NextApiResponse) {
+  // Only WITH SECRET KEY allowed
+  const { authorization } = req.headers
+  if (authorization !== `Bearer ${process.env.API_SECRET_KEY}`) {
+    res.status(401).end('Invalid Token')
+    return
+  }
+
+  // Only POST allowed
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST')
+    res.status(405).end('Method Not Allowed')
+    return
+  }
+
   const pages = 25 // 33
   const pagesNumbers = Array.from({ length: pages }, (v, i) => i + 1)
 

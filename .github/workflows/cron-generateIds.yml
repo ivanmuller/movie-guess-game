@@ -1,0 +1,13 @@
+name: everyweek-generateIds
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call our API route
+        run: |
+          curl --request POST \
+          --url 'https://movie-guess-game.vercel.app/api/generateIds' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
