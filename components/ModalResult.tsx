@@ -6,8 +6,9 @@ import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
 import Lifes from 'components/Lifes'
 import { IModalResults } from 'interfaces'
+import useLoseLife from 'controllers/useLoseLife'
 
-const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }: IModalResults, ref): JSX.Element => {
+const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalResults, ref): JSX.Element => {
   const { t } = useTranslation('common')
 
   const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
@@ -21,6 +22,8 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, loseLife, newMovie }:
   const addHistory = useStore(state => state.addHistory)
   const modifyScore = () => useStore.setState({ score: scorePrev + time })
   const closePopup = () => useStore.setState({ answerPopupOpened: false })
+
+  const loseLife = useLoseLife()
 
   const onFinishRound = () => {
     closePopup()

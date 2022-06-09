@@ -7,7 +7,6 @@ export interface IImageVisor {
 export interface IModalResults {
   shaId: string;
   movieOrder: number;
-  loseLife: () => void;
   newMovie: () => void;
 }
 
@@ -19,6 +18,9 @@ export interface IAppState {
   answerPopupOpened: boolean;
   answer: string | null;
   history: number[];
+  noSignal: boolean;
+  noSignalON: () => void;
+  noSignalOFF: () => void;
   decreaseLifes: () => void;
   decreaseTime: () => void;
   setAnswer: (movieId: string | null) => void;

@@ -32,6 +32,6 @@
     "new": "New Game",
     "next": "Next Movie"
   },
-  "rightClickMessage": "Sorry, you're not allowed to cheat 🤣\r\nPress F12 to see developer tools",
+  "rightClickMessage": "Sorry, cheating is not allowed 🤣\r\nPress F12 to see developer tools",
   "consoleLogMessage": "%c⛔ Are you trying to find the real ID of the movie? Well, I won't be so easy..."
 }

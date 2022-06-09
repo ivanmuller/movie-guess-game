@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import useSWR from 'swr'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import settings from 'settings'
 import { Container, Flex, Box, Text } from '@chakra-ui/react'
 import { awaitFetcher } from 'lib/fetcher'
 import useStore from 'store/store'
@@ -15,21 +14,13 @@ import ModalResult from 'components/ModalResult'
 import ImageVisor from 'components/ImageVisor'
 import Footer from 'components/Footer'
 
+import useNewMovie from 'controllers/useNewMovie'
+
 export default function Home (): JSX.Element {
   const { t } = useTranslation('common')
 
-  const [forcedNoSignal, setForcedNoSignal] = useState(false)
-
-  const resetTime = useStore(state => state.resetTime)
-  const pauseTime = useStore(state => state.pauseTime)
   const playTime = useStore(state => state.playTime)
-  const resetLifes = useStore(state => state.resetLifes)
-  const resetScore = useStore(state => state.resetScore)
-  const resetAnswer = useStore(state => state.resetAnswer)
-  const lifes = useStore(state => state.lifes)
-  const decreaseLifes = useStore(state => state.decreaseLifes)
   const history = useStore(state => state.history)
-  const resetHistory = useStore(state => state.resetHistory)
 
   const finalRef = React.useRef<HTMLDivElement>(null)
 
@@ -43,31 +34,7 @@ export default function Home (): JSX.Element {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
-  const newMovie = () => {
-    resetTime()
-    pauseTime()
-    setForcedNoSignal(true)
-    mutate().then(() => {
-      setTimeout(() => {
-        resetAnswer()
-        setForcedNoSignal(false)
-      }, settings.delayBetweenMovies)
-    })
-  }
-
-  const newGame = () => {
-    resetHistory()
-    resetLifes()
-    resetScore()
-    newMovie()
-  }
-
-  const loseLife = () => {
-    decreaseLifes()
-    if (lifes === 1) {
-      newGame()
-    }
-  }
+  const newMovie = useNewMovie(mutate)
 
   return (
     <>
@@ -95,7 +62,7 @@ export default function Home (): JSX.Element {
                     </Flex>
                   </Container>
                 </Box>
-                <ImageVisor forcedNoSignal={forcedNoSignal} {...data} />
+                <ImageVisor {...data} />
                 <Container maxW='container.sm' mt={['-180px', null, '-240px', '-280px']} mb={8} position='relative'>
                   <Box textAlign='center' mb={4}>
                     <Timer />
@@ -104,7 +71,7 @@ export default function Home (): JSX.Element {
                   <Box flex='1'><MovieSelector ref={finalRef} /></Box>
                 </Container>
                 {!isLoading &&
-                  <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} loseLife={loseLife} newMovie={newMovie} />
+                  <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} newMovie={newMovie} />
                 }
               </Box>
               <Footer />
