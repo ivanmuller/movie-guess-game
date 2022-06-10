@@ -16,8 +16,8 @@ const theme = {
       black1: 'rgba(0,0,0,1)'
     }
   },
-  styles: {    
-    global: (props) => ({    
+  styles: {
+    global: (props) => ({
       body: {
         background: 'brand.base',
         color: 'brand.white',
