@@ -1,6 +1,7 @@
 # 📽 Movie Guess Game
-A game to guess movies from different shot scenes, with score, countdown time and lifes. 
-Work in progress...
+A game to guess movies from different shot scenes, with score, countdown time and lifes.
+
+This is a work in progress...
 
 [Project URL ](https://movie-guess-game.vercel.app/)
 
@@ -15,8 +16,8 @@ Work in progress...
 
 ### 🧱 How it works
 - Thanks to [TMDB](https://www.themoviedb.org/), I generate a set of movies and save them in a database. This is our **Set to Play**.
-- The **Set** is basically a group of movies from 1980 sorted by vote average. This will update every week automatically.
-- From that **Set**, the app is showing two backdrops from a random movie.
+- The **Set** is basically a group of 500 movies from 1980 to 2022, sorted by vote average. This will be updated every week automatically.
+- From that **Set**, the app is picking a random movie and showing two backdrops of it.
 
 ## Ideas of new features to add
 - [ ] Modal styles improvements
