@@ -1,7 +1,4 @@
-const dev = process.env.NODE_ENV !== 'production'
-
 const settings = {
-  host: dev ? 'http://localhost:3000' : 'https://usdblue.vercel.app',
   appTitle: 'Movie Guess Game',
   movieDbApiKey: process.env.MOVIE_API_KEY,
   md5addition: '__additionalCharacters&$?',
