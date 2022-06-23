@@ -68,7 +68,7 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
         size='xl'
         onClose={() => false}
       >
-        {status !== 1 && (
+        {status === 1 && (
           <Confetti
             confettiSource={{ x: window.innerWidth / 4, y: window.innerHeight / 2, w: window.innerWidth / 2, h: 10 }}
             colors={Object.values(theme.colors.brand)}
