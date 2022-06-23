@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Flex, FormControl } from '@chakra-ui/react'
 import { AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from '@choc-ui/chakra-autocomplete'
+import useTypingEffect from 'lib/useTypingEffect'
 import useStore from 'store/store'
 
 const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
@@ -15,6 +16,13 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
   const answer = useStore(state => state.answer)
   const setAnswer = useStore(state => state.setAnswer)
   const openPopup = () => useStore.setState({ answerPopupOpened: true })
+
+  const placeholderTypingEffect = useTypingEffect({
+    over: [t('selector.placeholder')],
+    loop: true,
+    charSpeed: 100,
+    delayEnd: 10000
+  })
 
   /*
   /* Debouncing Search results
@@ -80,7 +88,7 @@ const MovieSelector = React.forwardRef((_props, ref : any): JSX.Element => {
             fontSize='18px'
             borderRadius='22px'
             focusBorderColor='none'
-            placeholder={t('selector.placeholder')}
+            placeholder={placeholderTypingEffect}
             onChange={(e) => getOptions(e.target.value)} ref={ref} />
             <AutoCompleteList>
               {selectorValues.map((item, cid) => {

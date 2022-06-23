@@ -32,6 +32,14 @@
     "new": "New Game",
     "next": "Next Movie"
   },
+  "movieData": {
+    "outof": "out of 10",
+    "votes": "votes",
+    "minutes": "minutes"
+  },
+  "help": {
+    "skip": "Hurry up / skip / lose life"
+  },
   "rightClickMessage": "Sorry, cheating is not allowed 🤣\r\nPress F12 to see developer tools",
   "consoleLogMessage": "%c⛔ Are you trying to find the real ID of the movie? Well, I won't be so easy..."
 }

@@ -26,6 +26,7 @@ export interface IAppState {
   setAnswer: (movieId: string | null) => void;
   resetScore: () => void;
   resetTime: () => void;
+  loseTime: (seconds: number) => void;
   playTime: () => void;
   pauseTime: () => void;
   resetLifes: () => void;

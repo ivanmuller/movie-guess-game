@@ -86,6 +86,19 @@ const theme = {
       fontSize: '18px',
       color: 'rgba(255,255,255,0.7)'
     },
+    helpTextIcon: {
+      fontSize: '16px',
+      fontFamily: 'VT323, monospace !important',
+      border: '1px solid rgba(255,255,255,0.4)',
+      color: 'rgba(255,255,255,0.4)',
+      py: 0.5,
+      px: 1,
+      mr: 1
+    },
+    helpText: {
+      fontSize: '14px',
+      color: 'rgba(255,255,255,0.4)'
+    },
     formInput: {
       paddingLeft: 7,
       paddingRight: 7,

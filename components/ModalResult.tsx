@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import useTranslation from 'next-translate/useTranslation'
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text, useTheme } from '@chakra-ui/react'
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text, useTheme, Image } from '@chakra-ui/react'
 import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
 import Lifes from 'components/Lifes'
 import { IModalResults } from 'interfaces'
 import useLoseLife from 'controllers/useLoseLife'
+import iconReload from 'public/icon-reload.svg'
+import iconNext from 'public/icon-next.svg'
 
 const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalResults, ref): JSX.Element => {
   const { t } = useTranslation('common')
@@ -108,7 +110,20 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='gray' mt={4} onClick={onFinishRound} ref={initialRef}>
-              {status === 2 ? t('actions.new') : t('actions.next')}
+              {status === 2
+                ? (
+                  <>
+                    <Image display='inline-block' verticalAlign='baseline' alt='' src={iconReload.src} w='24px' h='24px' />
+                    {t('actions.new')}
+                  </>
+                  )
+                : (
+                  <>
+                    {t('actions.next')}
+                    <Image display='inline-block' verticalAlign='baseline' alt='' src={iconNext.src} w='24px' h='24px' />
+                  </>
+                  )
+              }
             </Button>
           </ModalFooter>
         </ModalContent>

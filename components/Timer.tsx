@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { CircularProgress, CircularProgressLabel, Box, Text } from '@chakra-ui/react'
 import settings from 'settings'
 import useStore from 'store/store'
@@ -9,6 +9,7 @@ function Timer ({ isLoading }): JSX.Element {
   const noSignal = useStore(state => state.noSignal)
   const timeRunning = useStore(state => state.timeRunning)
   const decreaseTime = useStore(state => state.decreaseTime)
+  const loseTime = useStore(state => state.loseTime)
   const setAnswer = useStore(state => state.setAnswer)
   const pauseTime = useStore(state => state.pauseTime)
   const openPopup = () => useStore.setState({ answerPopupOpened: true })
@@ -28,13 +29,27 @@ function Timer ({ isLoading }): JSX.Element {
 
   useEffect(() => {
     setTimeDecimal(time)
-    if (time === 0) {
+    if (time <= 0) {
       openPopup()
       setAnswer(null)
       pauseTime()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
+
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      loseTime(settings.timeSkip)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('keydown', escFunction)
+    return () => {
+      document.removeEventListener('keydown', escFunction)
+    }
+  }, [escFunction])
 
   return (
     <Box>
@@ -49,7 +64,7 @@ function Timer ({ isLoading }): JSX.Element {
         min={0}
         max={settings.time}>
         <CircularProgressLabel>
-          <Text as='h3' fontSize={{ base: '25px', md: null, lg: '50px' }} align="center">{time}</Text>
+          <Text as='h3' fontSize={{ base: '25px', md: null, lg: '50px' }} align="center">{time < 0 ? 0 : time}</Text>
         </CircularProgressLabel>
       </CircularProgress>
     </Box>

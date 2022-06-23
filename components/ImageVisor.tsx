@@ -14,24 +14,24 @@ const Cap = ({ type }: { type:string }) => {
 
 function ImageVisor ({ filePath, filePathAlt }: IImageVisor): JSX.Element {
   const [showingImg, setShowingImg] = useState<string>('')
-  const timeRunning = useStore(state => state.timeRunning)
+  const [imageChanged, setImageChanged] = useState<boolean>(false)
+  const time = useStore(state => state.time)
   const noSignal = useStore(state => state.noSignal)
 
   useEffect(() => {
     if (filePath) {
       setShowingImg(filePath)
     }
+    setImageChanged(false)
   }, [filePath])
 
   useEffect(() => {
-    const changePic = setTimeout(() => {
-      if (timeRunning) {
-        setShowingImg(filePathAlt)
-      }
-    }, ((settings.time + 1) * 1000 / 2))
-    return () => clearTimeout(changePic)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showingImg, timeRunning])
+    if (time <= (settings.time / 2) && !imageChanged) {
+      setShowingImg(filePathAlt)
+      setImageChanged(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time, imageChanged])
 
   return (
     <Center backgroundColor='brand.black' alignItems="stretch" position="relative">

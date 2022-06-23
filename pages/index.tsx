@@ -68,7 +68,10 @@ export default function Home (): JSX.Element {
                     <Timer isLoading={isLoading} />
                   </Box>
                   <Text layerStyle='heading1' as='h1'>{t('mainAnswer')}</Text>
-                  <Box flex='1'><MovieSelector ref={finalRef} /></Box>
+                  <Box flex='1' mb={6}><MovieSelector ref={finalRef} /></Box>
+                  <Box px={6}>
+                    <Text layerStyle='helpText' as='p'><Text layerStyle='helpTextIcon' as='span'>Esc</Text> {t('help.skip')}</Text>
+                  </Box>
                 </Container>
                 {!isLoading &&
                   <ModalResult ref={finalRef} shaId={data.id} movieOrder={data.order} newMovie={newMovie} />

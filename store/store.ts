@@ -20,6 +20,7 @@ const useStore = create<IAppState>(set => ({
   resetTime: () => set({ time: settings.time }),
   playTime: () => set({ timeRunning: true }),
   pauseTime: () => set({ timeRunning: false }),
+  loseTime: (seconds) => set((state) => ({ time: state.time - seconds })),
   resetLifes: () => set({ lifes: settings.lifes }),
   resetAnswer: () => set({ answer: null }),
   addHistory: (movieOrder) => set((state) => ({ history: [...state.history, movieOrder] })),
