@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Confetti from 'react-confetti'
 import useTranslation from 'next-translate/useTranslation'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text } from '@chakra-ui/react'
 import useStore from 'store/store'
@@ -66,7 +67,13 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
         size='xl'
         onClose={() => false}
       >
-        <ModalOverlay backdropFilter='blur(4px)' bg='rgbas.black06' />
+        {status === 1 && (
+          <Confetti
+            confettiSource={{ x: window.innerWidth / 4, y: window.innerHeight / 2, w: window.innerWidth / 2, h: 10 }}
+            colors={['#272042', '#342E59', '#000', '#FFF']}
+          />
+        )}
+        <ModalOverlay bg='rgbas.black06' />
         <ModalContent backgroundColor="brand.base">
           <ModalHeader><Text as='h2' fontSize='40px'>{status === 1 ? t('result.correct') : t('result.incorrect')}</Text></ModalHeader>
           <ModalBody>

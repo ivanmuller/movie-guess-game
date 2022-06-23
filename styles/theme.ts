@@ -42,6 +42,9 @@ const theme = {
         [`@media screen and (min-width: ${props.theme.breakpoints.lg})`]: {
           maxHeight: '20vh !important'
         }
+      },
+      '#__next[aria-hidden="true"]': {
+        filter: 'blur(4px)'
       }
     })
   },
