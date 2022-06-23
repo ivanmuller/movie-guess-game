@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
 import useTranslation from 'next-translate/useTranslation'
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text } from '@chakra-ui/react'
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text, useTheme } from '@chakra-ui/react'
 import useStore from 'store/store'
 import { encrypt } from 'lib/encryption'
 import MovieData from 'components/ModalResultMovieData'
@@ -12,6 +12,7 @@ import useLoseLife from 'controllers/useLoseLife'
 const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalResults, ref): JSX.Element => {
   const { t } = useTranslation('common')
 
+  const theme = useTheme()
   const [status, setStatus] = useState<number>(0) // 0:incorrect | 1:correct | 2:lose
   const answer = useStore(state => state.answer)
   const encriptedAnswerId = encrypt(answer)
@@ -25,6 +26,8 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
   const closePopup = () => useStore.setState({ answerPopupOpened: false })
 
   const loseLife = useLoseLife()
+
+  console.log(theme)
 
   const onFinishRound = () => {
     closePopup()
@@ -67,10 +70,10 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
         size='xl'
         onClose={() => false}
       >
-        {status === 1 && (
+        {status !== 1 && (
           <Confetti
             confettiSource={{ x: window.innerWidth / 4, y: window.innerHeight / 2, w: window.innerWidth / 2, h: 10 }}
-            colors={['#272042', '#342E59', '#000', '#FFF']}
+            colors={Object.values(theme.colors.brand)}
           />
         )}
         <ModalOverlay bg='rgbas.black06' />
