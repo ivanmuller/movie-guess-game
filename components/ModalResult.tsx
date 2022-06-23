@@ -27,8 +27,6 @@ const ModalResult = React.forwardRef(({ shaId, movieOrder, newMovie }: IModalRes
 
   const loseLife = useLoseLife()
 
-  console.log(theme)
-
   const onFinishRound = () => {
     closePopup()
     newMovie()

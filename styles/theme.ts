@@ -44,7 +44,8 @@ const theme = {
         }
       },
       '#__next[aria-hidden="true"]': {
-        filter: 'blur(4px)'
+        filter: 'blur(4px)',
+        opacity: '0.5'
       }
     })
   },

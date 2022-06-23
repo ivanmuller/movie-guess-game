@@ -4,8 +4,9 @@ import settings from 'settings'
 import useStore from 'store/store'
 import useInterval from 'lib/useInterval'
 
-function Timer (): JSX.Element {
+function Timer ({ isLoading }): JSX.Element {
   const time = useStore(state => state.time)
+  const noSignal = useStore(state => state.noSignal)
   const timeRunning = useStore(state => state.timeRunning)
   const decreaseTime = useStore(state => state.decreaseTime)
   const setAnswer = useStore(state => state.setAnswer)
@@ -38,6 +39,7 @@ function Timer (): JSX.Element {
   return (
     <Box>
       <CircularProgress
+        isIndeterminate={noSignal || isLoading}
         value={timeDecimal}
         trackColor='rgbas.white04'
         color='brand.white'
